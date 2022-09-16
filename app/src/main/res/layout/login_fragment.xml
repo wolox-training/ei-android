@@ -57,7 +57,7 @@
         android:layout_marginTop="@dimen/medium_padding"
         android:gravity="left"
         android:hint="@string/last_name"
-        android:inputType="textPassword"
+        android:inputType="textPersonName|textNoSuggestions"
         android:maxLines="1"
         android:minHeight="@dimen/minHeightEditText"
         android:textColorHint="@color/hintGray"
