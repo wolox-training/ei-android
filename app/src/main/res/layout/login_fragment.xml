@@ -17,7 +17,7 @@
         >
 
         <ImageView
-            android:id="@+id/imageView"
+            android:id="@+id/woloxCoverImage"
             android:layout_width="match_parent"
             android:layout_height="200dp"
             android:background="@drawable/login_cover"
@@ -25,7 +25,7 @@
             />
 
         <ImageView
-            android:id="@+id/imageView2"
+            android:id="@+id/woloxLogo"
             android:layout_width="match_parent"
             android:layout_height="115dp"
             android:layout_alignParentBottom="true"
@@ -57,7 +57,7 @@
         android:layout_marginTop="@dimen/medium_padding"
         android:gravity="left"
         android:hint="@string/last_name"
-        android:inputType="textPersonName|textNoSuggestions"
+        android:inputType="textPassword"
         android:maxLines="1"
         android:minHeight="@dimen/minHeightEditText"
         android:textColorHint="@color/hintGray"
@@ -74,6 +74,7 @@
         android:layout_marginHorizontal="@dimen/fragment_horizontal_margin"
         android:layout_marginTop="@dimen/medium_padding"
         android:text="@string/login_btn"
+        android:textAllCaps="false"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@id/userLastName"
         app:layout_constraintStart_toStartOf="@id/userLastName"
@@ -89,6 +90,7 @@
         android:padding="@dimen/padding_regular_btn"
         android:layout_marginHorizontal="@dimen/fragment_horizontal_margin"
         android:text="@string/signup_btn"
+        android:textAllCaps="false"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@id/loginBtn"
         app:layout_constraintStart_toStartOf="@id/loginBtn"
@@ -105,7 +107,7 @@
         android:layout_marginBottom="5dp"
         android:gravity="bottom|center_horizontal"
         android:text="@string/footer_text"
-        android:textSize="16sp"
+        android:textSize="@dimen/small_footer_text_size"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />

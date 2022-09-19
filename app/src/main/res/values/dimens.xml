@@ -4,7 +4,9 @@
     <dimen name="fragment_vertical_margin">16dp</dimen>
     <dimen name="medium_padding">20dp</dimen>
     <dimen name="minHeightEditText">48dp</dimen>
+    <dimen name="padding_bottom_big">64dp</dimen>
     <dimen name="none_radius">0dp</dimen>
     <dimen name="padding_regular_btn">12dp</dimen>
+    <dimen name="small_footer_text_size">16sp</dimen>
 
 </resources>

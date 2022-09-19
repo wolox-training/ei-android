@@ -5,13 +5,13 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:paddingBottom="@dimen/padding_bottom_big"
     android:theme="@style/Theme.Woloxapp"
-    tools:context=".MainActivity"
-    android:paddingBottom="64dp">
+    tools:context=".MainActivity">
     >
-<androidx.fragment.app.FragmentContainerView
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:id="@+id/fragmentContainer"
-    />
+
+    <androidx.fragment.app.FragmentContainerView
+        android:id="@+id/fragmentContainer"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>
