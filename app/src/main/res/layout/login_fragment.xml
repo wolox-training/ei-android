@@ -9,7 +9,7 @@
     <RelativeLayout
         android:id="@+id/containerLogo"
         android:layout_width="match_parent"
-        android:layout_height="260dp"
+        android:layout_height="@dimen/height_container_logo"
         android:gravity="top"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -19,7 +19,7 @@
         <ImageView
             android:id="@+id/woloxCoverImage"
             android:layout_width="match_parent"
-            android:layout_height="200dp"
+            android:layout_height="@dimen/height_cover_image_wolox"
             android:background="@drawable/login_cover"
             android:src="@drawable/gradient_util"
             />
@@ -27,7 +27,7 @@
         <ImageView
             android:id="@+id/woloxLogo"
             android:layout_width="match_parent"
-            android:layout_height="115dp"
+            android:layout_height="@dimen/height_image_logo_wolox"
             android:layout_alignParentBottom="true"
             android:src="@drawable/wolox_logo" />
     </RelativeLayout>
@@ -74,7 +74,6 @@
         android:layout_marginHorizontal="@dimen/fragment_horizontal_margin"
         android:layout_marginTop="@dimen/medium_padding"
         android:text="@string/login_btn"
-        android:textAllCaps="false"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@id/userLastName"
         app:layout_constraintStart_toStartOf="@id/userLastName"
@@ -90,7 +89,6 @@
         android:padding="@dimen/padding_regular_btn"
         android:layout_marginHorizontal="@dimen/fragment_horizontal_margin"
         android:text="@string/signup_btn"
-        android:textAllCaps="false"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@id/loginBtn"
         app:layout_constraintStart_toStartOf="@id/loginBtn"
@@ -104,7 +102,7 @@
         android:id="@+id/woloxPhone"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="5dp"
+        android:layout_marginBottom="@dimen/extra_small_margin"
         android:gravity="bottom|center_horizontal"
         android:text="@string/footer_text"
         android:textSize="@dimen/small_footer_text_size"
