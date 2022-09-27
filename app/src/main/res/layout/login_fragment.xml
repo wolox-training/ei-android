@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    tools:context=".MainActivity"
     >
 
     <RelativeLayout
@@ -39,18 +40,20 @@
         android:layout_marginHorizontal="@dimen/fragment_horizontal_margin"
         android:gravity="left"
         android:hint="@string/first_name"
-        android:inputType="textPersonName|textNoSuggestions"
+        android:inputType="textEmailAddress|textNoSuggestions"
         android:maxLines="1"
         android:minHeight="@dimen/minHeightEditText"
         android:textColorHint="@color/hintGray"
-        app:layout_constraintBottom_toTopOf="@id/userLastName"
+        app:layout_constraintBottom_toTopOf="@id/password"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/containerLogo"
-        app:layout_constraintVertical_chainStyle="packed" />
+        app:layout_constraintVertical_chainStyle="packed"
+        android:imeOptions="actionDone"
+        />
 
     <EditText
-        android:id="@+id/userLastName"
+        android:id="@+id/password"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="@dimen/fragment_horizontal_margin"
@@ -64,7 +67,9 @@
         app:layout_constraintBottom_toTopOf="@id/loginBtn"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/userName" />
+        app:layout_constraintTop_toBottomOf="@id/userName"
+        android:imeOptions="actionDone"
+        />
 
     <Button
         android:id="@+id/loginBtn"
@@ -75,9 +80,9 @@
         android:layout_marginTop="@dimen/medium_padding"
         android:text="@string/login_btn"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@id/userLastName"
-        app:layout_constraintStart_toStartOf="@id/userLastName"
-        app:layout_constraintTop_toBottomOf="@id/userLastName"
+        app:layout_constraintEnd_toEndOf="@id/password"
+        app:layout_constraintStart_toStartOf="@id/password"
+        app:layout_constraintTop_toBottomOf="@id/password"
         app:cornerRadius="@dimen/none_radius"
         android:backgroundTint="@color/white"
         />

@@ -1,4 +1,5 @@
 <resources>
+
     <string name="app_name">woloxapp</string>
     <!-- Strings related to login -->
     <string name="footer_text">By joining you agree to our <u>Terms &amp; Conditions</u></string>
@@ -6,4 +7,24 @@
     <string name="signup_btn">sign up</string>
     <string name="first_name">First Name (recomended)</string>
     <string name="last_name">Last Name (recomended)</string>
+    <!-- Strings related to login -->
+    <string name="prompt_email">Email</string>
+    <string name="prompt_password">Password</string>
+    <string name="action_sign_in">Sign in or register</string>
+    <string name="action_sign_in_short">Sign in</string>
+    <string name="welcome">"Welcome!"</string>
+    <string name="invalid_username">Not a valid user: example@domain.com</string>
+    <string name="required_fields">All fields are required</string>
+
+    <!-- Companion User -->
+    <string name="username">USERNAME</string>
+    <string name="password">PASSWORD</string>
+    <string name="shared_preferences_username">SHARED_PREFERENCES_USERNAME</string>
+
+    <!-- TODO: Home -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="dummy_button">Books</string>
+    <string name="dummy_content">Books</string>
+    <string name="logout">Cerrar sesión</string>
+    <string name="go_back">Volver</string>
 </resources>
