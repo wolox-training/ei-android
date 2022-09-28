@@ -1,5 +1,7 @@
 package com.example.woloxapp.ui.login
 
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.view.Gravity
 import android.view.LayoutInflater
@@ -29,6 +31,7 @@ class LoginFragment : Fragment() {
         return binding.root
     }
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        val urlWolox = getText(R.string.wolox_web).toString()
         super.onViewCreated(view, savedInstanceState)
         loginViewModel = ViewModelProvider(this)[LoginViewModel::class.java]
         loginViewModel.getUserModel()
@@ -41,9 +44,9 @@ class LoginFragment : Fragment() {
                 loginViewModel.fieldsValidation(emailText, passwordText)
             }
             signupBtn.setOnClickListener {
-                // TODO: navigate to signupScreen
                 findNavController().navigate(R.id.go_to_signup)
             }
+            woloxPhone.setOnClickListener {startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(urlWolox)))}
         }
     }
 
