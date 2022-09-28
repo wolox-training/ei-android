@@ -42,6 +42,7 @@ class LoginFragment : Fragment() {
             }
             signupBtn.setOnClickListener {
                 // TODO: navigate to signupScreen
+                findNavController().navigate(R.id.go_to_signup)
             }
         }
     }

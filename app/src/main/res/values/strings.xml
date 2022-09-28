@@ -22,9 +22,11 @@
     <string name="shared_preferences_username">SHARED_PREFERENCES_USERNAME</string>
 
     <!-- TODO: Home -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="dummy_button">Books</string>
     <string name="dummy_content">Books</string>
     <string name="logout">Cerrar sesión</string>
-    <string name="go_back">Volver</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <!-- TODO: Signup -->
+    <string name="go_back_btn">Volver</string>
 </resources>

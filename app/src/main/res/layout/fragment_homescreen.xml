@@ -25,18 +25,6 @@
         android:textStyle="bold"
       />
 
-    <Button
-        android:id="@+id/buttonPrimary"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginHorizontal="@dimen/fragment_horizontal_margin"
-        android:layout_marginBottom="68dp"
-        android:backgroundTint="@color/white"
-        android:padding="@dimen/padding_regular_btn"
-        android:text="@string/go_back"
-        app:cornerRadius="@dimen/none_radius"
-        app:layout_constraintBottom_toBottomOf="parent"
-        tools:layout_editor_absoluteX="16dp" />
 
     <Button
         android:id="@+id/logoutBtn"
@@ -45,13 +33,11 @@
         android:padding="@dimen/padding_regular_btn"
         android:layout_marginHorizontal="@dimen/fragment_horizontal_margin"
         android:text="@string/logout"
+        android:backgroundTint="@color/white"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@id/buttonPrimary"
-        app:layout_constraintStart_toStartOf="@id/buttonPrimary"
-        app:layout_constraintTop_toBottomOf="@id/buttonPrimary"
         app:layout_constraintVertical_bias="0.02"
         app:cornerRadius="@dimen/none_radius"
-        android:textColor="@color/white"
+        android:textColor="@color/black"
         />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
