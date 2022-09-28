@@ -46,7 +46,7 @@ class LoginFragment : Fragment() {
             signupBtn.setOnClickListener {
                 findNavController().navigate(R.id.go_to_signup)
             }
-            woloxPhone.setOnClickListener {startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(urlWolox)))}
+            woloxPhone.setOnClickListener { startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(urlWolox))) }
         }
     }
 
