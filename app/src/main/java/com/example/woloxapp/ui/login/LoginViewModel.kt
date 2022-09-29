@@ -6,14 +6,8 @@ import android.content.SharedPreferences
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.example.woloxapp.R
 
-class LoginViewModel(private val applicationCustom: Application) : AndroidViewModel(applicationCustom) {
-    companion object {
-        const val USERNAME = R.string.username.toString()
-        const val PASSWORD: String = R.string.password.toString()
-        const val SHARED_PREFERENCES_USERNAME: String = R.string.shared_preferences_username.toString()
-    }
+class LoginViewModel(private val app: Application) : AndroidViewModel(app) {
     private val _userEmail = MutableLiveData<String?>()
     val userEmail: LiveData<String?>
         get() = _userEmail
@@ -21,10 +15,7 @@ class LoginViewModel(private val applicationCustom: Application) : AndroidViewMo
     val userPassword: LiveData<String?>
         get() = _userPassword
 
-    private val sharedPreferencesSaved: SharedPreferences = applicationCustom.applicationContext.getSharedPreferences(
-        SHARED_PREFERENCES_USERNAME,
-        Context.MODE_PRIVATE
-    )
+    private val sharedPreferencesSaved: SharedPreferences = app.applicationContext.getSharedPreferences(SHARED_PREFERENCES_USERNAME, Context.MODE_PRIVATE)
 
     private val _emptyFields = MutableLiveData<Boolean?>()
     val emptyFieldsError: MutableLiveData<Boolean?>
@@ -35,8 +26,8 @@ class LoginViewModel(private val applicationCustom: Application) : AndroidViewMo
         get() = _validEmail
 
     fun fieldsValidation(emailValue: String, passwordValue: String) {
-        val valid = emailValue.isEmpty() || passwordValue.isEmpty()
-        if (valid) _emptyFields.value = valid
+        val emptyField = emailValue.isEmpty() || passwordValue.isEmpty()
+        if (emptyField) _emptyFields.value = emptyField
         else emailValidation(emailValue, passwordValue)
     }
 
@@ -64,5 +55,10 @@ class LoginViewModel(private val applicationCustom: Application) : AndroidViewMo
 
     fun logout() {
         // TODO: editor.clear() then commit()
+    }
+    companion object {
+        const val USERNAME = "USERNAME"
+        const val PASSWORD = "PASSWORD"
+        const val SHARED_PREFERENCES_USERNAME = "SHARED_PREFERENCES_USERNAME"
     }
 }
