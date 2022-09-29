@@ -25,11 +25,10 @@ class HomeFragment : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        loginViewModel = ViewModelProvider(this)[LoginViewModel::class.java]
         super.onViewCreated(view, savedInstanceState)
-        val logoutBtn = binding.logoutBtn
-        logoutBtn.setOnClickListener {
-            if (::loginViewModel.isInitialized) {
+        loginViewModel = ViewModelProvider(this)[LoginViewModel::class.java]
+        with(binding) {
+            logoutBtn.setOnClickListener {
                 loginViewModel.logout()
                 findNavController().navigate(R.id.authFragment)
             }

@@ -14,4 +14,9 @@
     <dimen name="height_image_logo_wolox">115dp</dimen>
     <dimen name="height_cover_image_wolox">200dp</dimen>
 
+    <!-- Home -->
+
+<dimen name="go_back_home_margin_bottom">68dp</dimen>
+    <dimen name="home_title_size">50sp</dimen>
+
 </resources>

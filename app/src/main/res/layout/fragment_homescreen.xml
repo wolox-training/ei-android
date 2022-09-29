@@ -21,10 +21,9 @@
         android:keepScreenOn="true"
         android:text="@string/dummy_content"
         android:textColor="@color/white"
-        android:textSize="50sp"
+        android:textSize="@dimen/home_title_size"
         android:textStyle="bold"
       />
-
 
     <Button
         android:id="@+id/logoutBtn"
