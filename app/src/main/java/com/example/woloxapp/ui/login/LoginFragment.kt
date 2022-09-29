@@ -16,10 +16,6 @@ class LoginFragment : Fragment() {
     private lateinit var loginViewModel: LoginViewModel
     private lateinit var _binding: LoginFragmentBinding
     private val binding get() = _binding
-    companion object {
-        const val toastHorizontal = 0
-        const val toastVertical = 20
-    }
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -75,5 +71,9 @@ class LoginFragment : Fragment() {
                 this.findNavController().navigate(R.id.go_to_home)
             }
         }
+    }
+    companion object {
+        const val toastHorizontal = 0
+        const val toastVertical = 20
     }
 }
