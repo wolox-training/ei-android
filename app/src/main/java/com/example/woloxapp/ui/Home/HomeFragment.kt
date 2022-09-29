@@ -27,10 +27,14 @@ class HomeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         loginViewModel = ViewModelProvider(this)[LoginViewModel::class.java]
+        loginViewModel.getUserModel()
         with(binding) {
             logoutBtn.setOnClickListener {
                 loginViewModel.logout()
-                findNavController().navigate(R.id.authFragment)
+                findNavController().navigate(R.id.loginFragment)
+            }
+            loginViewModel.userIsLogged.observe(viewLifecycleOwner) {
+                if (!it) findNavController().navigate(R.id.loginFragment)
             }
         }
     }

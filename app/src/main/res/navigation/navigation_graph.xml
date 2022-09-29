@@ -2,7 +2,7 @@
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/navigation_graph"
-    app:startDestination="@id/authFragment">
+    app:startDestination="@id/HomePageFragment">
     <fragment
         android:id="@+id/loginFragment"
         android:name="com.example.woloxapp.ui.login.LoginFragment"
@@ -22,10 +22,6 @@
         android:id="@+id/HomePageFragment"
         android:name="com.example.woloxapp.ui.Home.HomeFragment"
         android:label="HomePageFragment" />
-    <fragment
-        android:id="@+id/authFragment"
-        android:name="com.example.woloxapp.ui.AuthManager.AuthManager"
-        android:label="AuthManager" />
     <fragment
         android:id="@+id/signupFragment"
         android:name="com.example.woloxapp.ui.Signup.Signup"

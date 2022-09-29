@@ -30,7 +30,6 @@ class LoginFragment : Fragment() {
         val urlWolox = getText(R.string.wolox_web).toString()
         super.onViewCreated(view, savedInstanceState)
         loginViewModel = ViewModelProvider(this)[LoginViewModel::class.java]
-        loginViewModel.getUserModel()
         getObservers()
         validCredentials()
         with(binding) {
