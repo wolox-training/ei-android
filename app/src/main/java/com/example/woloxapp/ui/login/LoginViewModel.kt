@@ -24,17 +24,16 @@ class LoginViewModel(private val app: Application) : AndroidViewModel(app) {
     private val _validEmail = MutableLiveData<Boolean?>()
     val validEmail: MutableLiveData<Boolean?>
         get() = _validEmail
+    private val editor = sharedPreferencesSaved.edit()
 
     fun fieldsValidation(emailValue: String, passwordValue: String) {
         val emptyField = emailValue.isEmpty() || passwordValue.isEmpty()
         if (emptyField) _emptyFields.value = emptyField
         else emailValidation(emailValue, passwordValue)
     }
-
     private fun emailValidation(emailValue: String, passwordValue: String) {
         val emailTemp = emailValue.trim()
         if (android.util.Patterns.EMAIL_ADDRESS.matcher(emailTemp).matches()) {
-            val editor = sharedPreferencesSaved.edit()
             editor.also {
                 it.putString(USERNAME, emailValue)
                 it.putString(PASSWORD, passwordValue)
@@ -51,10 +50,15 @@ class LoginViewModel(private val app: Application) : AndroidViewModel(app) {
             _userEmail.value = savedEmail
             _userPassword.value = savedPassword
         }
+        _userIsLogged.value = savedEmail != null && savedPassword != null
     }
+    private val _userIsLogged = MutableLiveData<Boolean>()
+    val userIsLogged: LiveData<Boolean>
+        get() = _userIsLogged
 
     fun logout() {
-        // TODO: editor.clear() then commit()
+        editor.clear()
+        editor.commit()
     }
     companion object {
         const val USERNAME = "USERNAME"
