@@ -16,6 +16,7 @@
     <string name="invalid_username">Not a valid user: example@domain.com</string>
     <string name="required_fields">All fields are required</string>
     <string name="wolox_web">https://www.wolox.com.ar/</string>
+    <string name="login_failure">"Invalid credentials, please try again"</string>
     <!-- TODO: Home -->
     <string name="dummy_button">Books</string>
     <string name="dummy_content">Books</string>

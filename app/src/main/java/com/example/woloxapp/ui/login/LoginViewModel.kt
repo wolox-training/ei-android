@@ -6,6 +6,11 @@ import android.content.SharedPreferences
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.viewModelScope
+import com.example.woloxapp.model.User
+import com.example.woloxapp.repository.UserRepository
+import com.google.gson.Gson
+import kotlinx.coroutines.launch
 
 class LoginViewModel(private val app: Application) : AndroidViewModel(app) {
     private val _userEmail = MutableLiveData<String?>()
@@ -29,18 +34,10 @@ class LoginViewModel(private val app: Application) : AndroidViewModel(app) {
     fun fieldsValidation(emailValue: String, passwordValue: String) {
         val emptyField = emailValue.isEmpty() || passwordValue.isEmpty()
         if (emptyField) _emptyFields.value = emptyField
-        else emailValidation(emailValue, passwordValue)
+        else emailValidation(emailValue)
     }
-    private fun emailValidation(emailValue: String, passwordValue: String) {
-        val emailTemp = emailValue.trim()
-        if (android.util.Patterns.EMAIL_ADDRESS.matcher(emailTemp).matches()) {
-            editor.also {
-                it.putString(USERNAME, emailValue)
-                it.putString(PASSWORD, passwordValue)
-                it.commit()
-            }
-            _validEmail.value = true
-        } else _validEmail.value = false
+    private fun emailValidation(emailValue: String) {
+        _validEmail.value = android.util.Patterns.EMAIL_ADDRESS.matcher(emailValue.trim()).matches()
     }
 
     fun getUserModel() {
@@ -52,6 +49,23 @@ class LoginViewModel(private val app: Application) : AndroidViewModel(app) {
         }
         _userIsLogged.value = savedEmail != null && savedPassword != null
     }
+    private val userRepository = UserRepository()
+    fun login(user: User) {
+        viewModelScope.launch {
+            val response = userRepository.loginUser(user)
+            if (response.isSuccessful) {
+                val editor = sharedPreferencesSaved.edit()
+                editor.also {
+                    it.putString(USERNAME, user.email)
+                    it.putString(PASSWORD, user.password)
+                    it.putString(DATA_USER, Gson().toJson(response.body()))
+                    it.commit()
+                }
+            }
+            _userIsLogged.value = response.isSuccessful
+        }
+    }
+
     private val _userIsLogged = MutableLiveData<Boolean>()
     val userIsLogged: LiveData<Boolean>
         get() = _userIsLogged
@@ -63,6 +77,7 @@ class LoginViewModel(private val app: Application) : AndroidViewModel(app) {
     companion object {
         const val USERNAME = "USERNAME"
         const val PASSWORD = "PASSWORD"
+        private const val DATA_USER: String = "DATA_USER"
         const val SHARED_PREFERENCES_USERNAME = "SHARED_PREFERENCES_USERNAME"
     }
 }

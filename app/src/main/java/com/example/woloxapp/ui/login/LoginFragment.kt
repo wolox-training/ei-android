@@ -13,6 +13,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.example.woloxapp.R
 import com.example.woloxapp.databinding.LoginFragmentBinding
+import com.example.woloxapp.model.User
 
 class LoginFragment : Fragment() {
     private lateinit var loginViewModel: LoginViewModel
@@ -30,8 +31,6 @@ class LoginFragment : Fragment() {
         val urlWolox = getText(R.string.wolox_web).toString()
         super.onViewCreated(view, savedInstanceState)
         loginViewModel = ViewModelProvider(this)[LoginViewModel::class.java]
-        getObservers()
-        validCredentials()
         with(binding) {
             loginBtn.setOnClickListener {
                 val emailText = userName.text.toString()
@@ -42,41 +41,41 @@ class LoginFragment : Fragment() {
                 findNavController().navigate(R.id.go_to_signup)
             }
             woloxPhone.setOnClickListener { startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(urlWolox))) }
+            loginViewModel.emptyFieldsError.observe(viewLifecycleOwner) {
+                it?.let {
+                    showToast(R.string.required_fields)
+                }
+            }
+            loginViewModel.validEmail.observe(viewLifecycleOwner) {
+                if (it == false) {
+                    binding.userName.error = getString(R.string.invalid_username)
+                }
+            }
+            loginViewModel.userEmail.observe(viewLifecycleOwner) {
+                it.let {
+                    binding.userName.setText(it)
+                }
+            }
+            loginViewModel.userPassword.observe(viewLifecycleOwner) {
+                it.let {
+                    binding.password.setText(it)
+                }
+            }
+            loginViewModel.validEmail.observe(viewLifecycleOwner) {
+                if (it!!) loginViewModel.login(User(userName.text.toString(), password.text.toString()))
+                else binding.userName.error = getString(R.string.invalid_username)
+            }
+            loginViewModel.userIsLogged.observe(viewLifecycleOwner) {
+                if (it) findNavController().navigate(R.id.go_to_home)
+                else showToast(R.string.login_failure)
+            }
         }
     }
-
-    private fun getObservers() {
-        val toast = Toast.makeText(context, getString(R.string.required_fields), Toast.LENGTH_SHORT)
+    private fun showToast(string: Int) {
+        val toastHorizontal = 0
+        val toastVertical = 20
+        val toast = Toast.makeText(context, getString(string), Toast.LENGTH_SHORT)
         toast.setGravity(Gravity.TOP, toastHorizontal, toastVertical)
-        loginViewModel.emptyFieldsError.observe(viewLifecycleOwner) {
-            it?.let { toast.show() }
-        }
-        loginViewModel.validEmail.observe(viewLifecycleOwner) {
-            if (it == false) {
-                binding.userName.error = getString(R.string.invalid_username)
-            }
-        }
-        loginViewModel.userEmail.observe(viewLifecycleOwner) {
-            it.let {
-                binding.userName.setText(it)
-            }
-        }
-        loginViewModel.userPassword.observe(viewLifecycleOwner) {
-            it.let {
-                binding.password.setText(it)
-            }
-        }
-    }
-
-    private fun validCredentials() {
-        loginViewModel.validEmail.observe(viewLifecycleOwner) {
-            if (it == true) {
-                this.findNavController().navigate(R.id.go_to_home)
-            }
-        }
-    }
-    companion object {
-        const val toastHorizontal = 0
-        const val toastVertical = 20
+        toast.show()
     }
 }
