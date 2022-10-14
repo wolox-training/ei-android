@@ -75,7 +75,6 @@ class LoginFragment : Fragment() {
         fetchResponse(user)
         loginViewModel.response.observe(viewLifecycleOwner) {
                 response ->
-            println(response)
             when (response) {
                 is NetworkResult.Success -> {
                     findNavController().navigate(R.id.go_to_home)
