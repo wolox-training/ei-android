@@ -67,17 +67,14 @@ class LoginFragment : Fragment() {
             }
         }
     }
-    private fun fetchResponse(user: User) {
+    private fun fetchData(user: User) {
         loginViewModel.login(user)
         binding.progressBar.visibility = View.VISIBLE
-    }
-    private fun fetchData(user: User) {
-        fetchResponse(user)
         loginViewModel.response.observe(viewLifecycleOwner) {
                 response ->
             when (response) {
                 is NetworkResult.Success -> {
-                    findNavController().navigate(R.id.go_to_home)
+                    this.findNavController()?.navigate(R.id.HomePageFragment)
                 }
                 is NetworkResult.Error -> {
                     response.message?.let { showToast(it) }

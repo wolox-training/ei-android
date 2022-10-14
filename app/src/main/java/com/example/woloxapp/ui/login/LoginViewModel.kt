@@ -34,8 +34,8 @@ class LoginViewModel(val app: Application) : AndroidViewModel(app) {
     private val editor = sharedPreferencesSaved.edit()
 
     private val userRepository = UserRepository()
-    private val _response: MutableLiveData<NetworkResult<UserResponse>> = MutableLiveData()
-    val response: LiveData<NetworkResult<UserResponse>> = _response
+    private val _response: MutableLiveData<NetworkResult<UserResponse>?> = MutableLiveData()
+    val response: MutableLiveData<NetworkResult<UserResponse>?> = _response
 
     private val _userIsLogged = MutableLiveData<Boolean>()
     val userIsLogged: LiveData<Boolean>
@@ -62,11 +62,12 @@ class LoginViewModel(val app: Application) : AndroidViewModel(app) {
 
     fun login(user: User) {
         viewModelScope.launch {
+            _response.value = null
             userRepository.login(user).collect {
                     values ->
                 _response.value = values
                 when (response.value) {
-                    is NetworkResult.Success -> {
+                    is NetworkResult.Success<*> -> {
                         editor.also {
                             it.putString(DATA_USER, Gson().toJson(response.value))
                             it.putString(USERNAME, user.email)
