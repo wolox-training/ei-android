@@ -17,13 +17,6 @@
     <string name="required_fields">All fields are required</string>
     <string name="wolox_web">https://www.wolox.com.ar/</string>
     <string name="login_failure">"Invalid credentials, please try again"</string>
-
-    <string name="success">"success"</string>
-    <string name="error">Error</string>
-    <string name="loading">Loading</string>
-    <string name="no_internet">No internet</string>
-
-
     <!-- TODO: Home -->
     <string name="dummy_button">Books</string>
     <string name="dummy_content">Books</string>
