@@ -12,6 +12,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.example.woloxapp.R
+import com.example.woloxapp.Service.NetworkResult
 import com.example.woloxapp.databinding.LoginFragmentBinding
 import com.example.woloxapp.model.User
 
@@ -62,19 +63,46 @@ class LoginFragment : Fragment() {
                 }
             }
             loginViewModel.validEmail.observe(viewLifecycleOwner) {
-                if (it!!) loginViewModel.login(User(userName.text.toString(), password.text.toString()))
-                else binding.userName.error = getString(R.string.invalid_username)
-            }
-            loginViewModel.userIsLogged.observe(viewLifecycleOwner) {
-                if (it) findNavController().navigate(R.id.go_to_home)
-                else showToast(R.string.login_failure)
+                if (it!!) fetchData(User(userName.text.toString(), password.text.toString()))
             }
         }
     }
-    private fun showToast(string: Int) {
+    private fun fetchResponse(user: User) {
+        loginViewModel.login(user)
+        binding.progressBar.visibility = View.VISIBLE
+    }
+    private fun fetchData(user: User) {
+        fetchResponse(user)
+        loginViewModel.response.observe(viewLifecycleOwner) {
+                response ->
+            println(response)
+            when (response) {
+                is NetworkResult.Success -> {
+                    findNavController().navigate(R.id.go_to_home)
+                }
+                is NetworkResult.Error -> {
+                    response.message?.let { showToast(it) }
+                    binding.progressBar.visibility = View.INVISIBLE
+                }
+                is NetworkResult.Loading -> {
+                    binding.progressBar.visibility = View.VISIBLE
+                }
+                is NetworkResult.NotConnection -> {
+                    binding.progressBar.visibility = View.INVISIBLE
+                    response.message?.let { showToast(it) }
+                }
+            }
+        }
+    }
+    private fun showToast(string: Any) {
         val toastHorizontal = 0
         val toastVertical = 20
-        val toast = Toast.makeText(context, getString(string), Toast.LENGTH_SHORT)
+        val titleString = when (string) {
+            is String -> string
+            is Int -> getString(string)
+            else -> throw IllegalAccessError()
+        }
+        val toast = Toast.makeText(context, titleString, Toast.LENGTH_SHORT)
         toast.setGravity(Gravity.TOP, toastHorizontal, toastVertical)
         toast.show()
     }

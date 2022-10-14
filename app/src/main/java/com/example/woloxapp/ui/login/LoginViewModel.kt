@@ -7,12 +7,14 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
+import com.example.woloxapp.Service.NetworkResult
+import com.example.woloxapp.Service.UserResponse
 import com.example.woloxapp.model.User
 import com.example.woloxapp.repository.UserRepository
 import com.google.gson.Gson
 import kotlinx.coroutines.launch
 
-class LoginViewModel(private val app: Application) : AndroidViewModel(app) {
+class LoginViewModel(val app: Application) : AndroidViewModel(app) {
     private val _userEmail = MutableLiveData<String?>()
     val userEmail: LiveData<String?>
         get() = _userEmail
@@ -30,6 +32,14 @@ class LoginViewModel(private val app: Application) : AndroidViewModel(app) {
     val validEmail: MutableLiveData<Boolean?>
         get() = _validEmail
     private val editor = sharedPreferencesSaved.edit()
+
+    private val userRepository = UserRepository()
+    private val _response: MutableLiveData<NetworkResult<UserResponse>> = MutableLiveData()
+    val response: LiveData<NetworkResult<UserResponse>> = _response
+
+    private val _userIsLogged = MutableLiveData<Boolean>()
+    val userIsLogged: LiveData<Boolean>
+        get() = _userIsLogged
 
     fun fieldsValidation(emailValue: String, passwordValue: String) {
         val emptyField = emailValue.isEmpty() || passwordValue.isEmpty()
@@ -49,26 +59,26 @@ class LoginViewModel(private val app: Application) : AndroidViewModel(app) {
         }
         _userIsLogged.value = savedEmail != null && savedPassword != null
     }
-    private val userRepository = UserRepository()
+
     fun login(user: User) {
         viewModelScope.launch {
-            val response = userRepository.loginUser(user)
-            if (response.isSuccessful) {
-                val editor = sharedPreferencesSaved.edit()
-                editor.also {
-                    it.putString(USERNAME, user.email)
-                    it.putString(PASSWORD, user.password)
-                    it.putString(DATA_USER, Gson().toJson(response.body()))
-                    it.commit()
+            userRepository.login(user).collect {
+                    values ->
+                _response.value = values
+                when (response.value) {
+                    is NetworkResult.Success -> {
+                        editor.also {
+                            it.putString(DATA_USER, Gson().toJson(response.value))
+                            it.putString(USERNAME, user.email)
+                            it.putString(PASSWORD, user.password)
+                            it.commit()
+                        }
+                    }
+                    else -> return@collect
                 }
             }
-            _userIsLogged.value = response.isSuccessful
         }
     }
-
-    private val _userIsLogged = MutableLiveData<Boolean>()
-    val userIsLogged: LiveData<Boolean>
-        get() = _userIsLogged
 
     fun logout() {
         editor.clear()
