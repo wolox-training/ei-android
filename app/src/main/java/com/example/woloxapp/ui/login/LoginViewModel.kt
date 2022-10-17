@@ -68,7 +68,6 @@ class LoginViewModel(val app: Application) : AndroidViewModel(app) {
                 _response.value = values
                 when (response.value) {
                     is NetworkResult.Success -> {
-
                         editor.also {
                             it.putString(DATA_USER,Gson().toJson(response.value?.data?.data))
                             it.putString(USERNAME, user.email)
