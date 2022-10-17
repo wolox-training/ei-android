@@ -11,13 +11,13 @@ abstract class BaseApiResponse {
             apiCall.invoke()
         } catch (e: java.lang.Exception) {
             val message = if (e is ConnectException || e is UnknownHostException) CONNECTION_ERROR else GENERIC_ERROR
-            return NetworkResult.NotConnection(message)
+            return NetworkResult.Failure(message)
         }
         try {
             if (response.isSuccessful) {
                 val body = response.body()
                 body?.let {
-                    return NetworkResult.Success(body)
+                    return NetworkResult.Success(response.body())
                 }
             }
             return error("${response.code()} ${response.message()}")
@@ -28,6 +28,7 @@ abstract class BaseApiResponse {
 
     private fun <T> error(errorMessage: String): NetworkResult<T> =
         NetworkResult.Error("$INVALID_CREDENTIALS, $errorMessage")
+
     companion object {
         const val CONNECTION_ERROR = "Connection Error"
         const val GENERIC_ERROR = "Something wrong, please try again."

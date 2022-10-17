@@ -80,10 +80,7 @@ class LoginFragment : Fragment() {
                     response.message?.let { showToast(it) }
                     binding.progressBar.visibility = View.INVISIBLE
                 }
-                is NetworkResult.Loading -> {
-                    binding.progressBar.visibility = View.VISIBLE
-                }
-                is NetworkResult.NotConnection -> {
+                is NetworkResult.Failure -> {
                     binding.progressBar.visibility = View.INVISIBLE
                     response.message?.let { showToast(it) }
                 }
