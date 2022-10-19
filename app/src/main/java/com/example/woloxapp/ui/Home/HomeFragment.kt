@@ -5,8 +5,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.WindowManager
+import androidx.core.content.res.ResourcesCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import com.example.woloxapp.R
 import com.example.woloxapp.databinding.FragmentHomescreenBinding
 import com.example.woloxapp.ui.Home.tablayout.adapters.ViewPagerAdapter
 import com.example.woloxapp.ui.login.LoginViewModel
@@ -33,11 +35,10 @@ class HomeFragment : Fragment() {
         requireActivity().window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LAYOUT_STABLE
         requireActivity().window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION)
         with(binding) {
-            val tabLyt: TabLayout = tabLayout
             val viewPager2 = viewPager2
             val adapter = ViewPagerAdapter(parentFragmentManager, lifecycle)
             viewPager2.adapter = adapter
-            TabLayoutMediator(tabLyt, viewPager2) {
+            TabLayoutMediator(tabLayout, viewPager2) {
                     tab, position ->
                 when (position) {
                     0 -> {
@@ -47,7 +48,7 @@ class HomeFragment : Fragment() {
                         tab.text = "Profile"
                     }
                 }
-            }
+            }.attach()
         }
        /* with(binding) {
              loginViewModel.userIsLogged.observe(viewLifecycleOwner) {
