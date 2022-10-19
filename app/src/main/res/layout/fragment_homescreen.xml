@@ -48,7 +48,12 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/wolox_logo"
-        app:tabMode="fixed" />
+        app:tabIndicatorColor="@color/green"
+        app:tabSelectedTextColor="@color/green"
+        android:textSize="12sp"
+        app:tabMode="fixed"
+        app:tabTextAppearance="@style/customTabBarStyle"
+        />
 
     <androidx.viewpager2.widget.ViewPager2
         android:id="@+id/view_pager_2"
