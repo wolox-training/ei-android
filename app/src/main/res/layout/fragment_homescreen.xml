@@ -9,7 +9,31 @@
 
     <!-- The primary full-screen view. This can be replaced with whatever view
          is needed to present your content, e.g. VideoView, SurfaceView,
-         TextureView, etc. -->
+         TextureView, etc.
+          app:layout_constraintStart_toEndOf="@id/wolox_logo"
+    app:layout_constraintTop_toTopOf="parent"
+    app:layout_constraintBottom_toBottomOf="@id/wolox_title"
+          -->
+
+    <ImageView
+        android:id="@+id/wolox_logo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/wolox_logo"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:contentDescription="@string/welcome"
+        android:padding="@dimen/extra_small_margin"
+
+        />
+    <TextView
+        android:id="@+id/wolox_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="13dp"
+        android:textColor="@color/black"
+        android:text="@string/wolox"
+        />
 
     <com.google.android.material.tabs.TabLayout
         android:id="@+id/tab_layout"
@@ -17,14 +41,18 @@
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
         android:elevation="1dp"
-        app:layout_constraintBottom_toTopOf="@id/tab_layout" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/wolox_title"
+         />
 
     <androidx.viewpager2.widget.ViewPager2
         android:id="@+id/view_pager_2"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@+id/tab_layout"
-        app:layout_constraintBottom_toBottomOf="@id/tab_layout" />
+        app:layout_constraintBottom_toBottomOf="@id/tab_layout"
+        tools:layout_editor_absoluteX="51dp" />
 
     <!--  <Button
           android:id="@+id/logoutBtn"

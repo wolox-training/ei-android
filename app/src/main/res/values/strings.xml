@@ -21,6 +21,7 @@
     <string name="dummy_button">Books</string>
     <string name="dummy_content">Books</string>
     <string name="logout">Cerrar sesión</string>
+    <string name="wolox">wolox</string>
     <!-- TODO: Signup -->
     <string name="go_back_btn">Volver</string>
     <!-- TODO: Remove or change this placeholder text -->
