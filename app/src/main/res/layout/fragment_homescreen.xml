@@ -9,28 +9,33 @@
     <!-- The primary full-screen view. This can be replaced with whatever view
          is needed to present your content, e.g. VideoView, SurfaceView,
          TextureView, etc. -->
-
-  <com.google.android.material.tabs.TabLayout
-      android:layout_width="match_parent"
-      android:layout_height="match_parent"
-      android:id="@+id/tab_layout"/>
-    <androidx.viewpager2.widget.ViewPager2
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:id="@+id/view_pager"/>
-
-  <!--  <Button
-        android:id="@+id/logoutBtn"
-        android:layout_width="match_parent"
+    <TextView
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:padding="@dimen/padding_regular_btn"
-        android:layout_marginHorizontal="@dimen/fragment_horizontal_margin"
-        android:text="@string/logout"
-        android:backgroundTint="@color/white"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintVertical_bias="0.02"
-        app:cornerRadius="@dimen/none_radius"
-        android:textColor="@color/black"
-        />-->
+        android:text="hola" />
+
+    <com.google.android.material.tabs.TabLayout
+        android:id="@+id/tab_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+    <androidx.viewpager2.widget.ViewPager2
+        android:id="@+id/view_pager_2"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+    <!--  <Button
+          android:id="@+id/logoutBtn"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:padding="@dimen/padding_regular_btn"
+          android:layout_marginHorizontal="@dimen/fragment_horizontal_margin"
+          android:text="@string/logout"
+          android:backgroundTint="@color/white"
+          app:layout_constraintBottom_toBottomOf="parent"
+          app:layout_constraintVertical_bias="0.02"
+          app:cornerRadius="@dimen/none_radius"
+          android:textColor="@color/black"
+          />-->
 
 </LinearLayout>

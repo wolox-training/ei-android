@@ -1,6 +1,5 @@
 package com.example.woloxapp.ui.Home
 
-import android.graphics.Color
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -8,11 +7,10 @@ import android.view.ViewGroup
 import android.view.WindowManager
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.fragment.findNavController
-import com.example.woloxapp.R
 import com.example.woloxapp.databinding.FragmentHomescreenBinding
 import com.example.woloxapp.ui.Home.tablayout.adapters.ViewPagerAdapter
 import com.example.woloxapp.ui.login.LoginViewModel
+import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 
 class HomeFragment : Fragment() {
@@ -32,16 +30,27 @@ class HomeFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         loginViewModel = ViewModelProvider(this)[LoginViewModel::class.java]
         loginViewModel.getUserModel()
+        requireActivity().window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LAYOUT_STABLE
         requireActivity().window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION)
-        requireActivity().window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS)
-        requireActivity().window.statusBarColor = Color.GREEN
         with(binding) {
-           /* logoutBtn.setOnClickListener {
-                loginViewModel.logout()
-                findNavController().navigate(R.id.loginFragment)
+            val tabLyt: TabLayout = tabLayout
+            val viewPager2 = viewPager2
+            val adapter = ViewPagerAdapter(parentFragmentManager, lifecycle)
+            viewPager2.adapter = adapter
+            TabLayoutMediator(tabLyt, viewPager2) {
+                    tab, position ->
+                when (position) {
+                    0 -> {
+                        tab.text = "News"
+                    }
+                    1 -> {
+                        tab.text = "Profile"
+                    }
+                }
             }
-            */
-            loginViewModel.userIsLogged.observe(viewLifecycleOwner) {
+        }
+       /* with(binding) {
+             loginViewModel.userIsLogged.observe(viewLifecycleOwner) {
                 if (!it) findNavController().navigate(R.id.loginFragment)
             }
             val adapter = fragmentManager?.let { ViewPagerAdapter(it, lifecycle) }
@@ -57,5 +66,8 @@ class HomeFragment : Fragment() {
                 }
             }
         }
+        */
     }
+
+
 }
