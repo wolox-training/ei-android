@@ -109,7 +109,7 @@ class LoginViewModel(val app: Application) : AndroidViewModel(app) {
     companion object {
         const val USERNAME = "USERNAME"
         const val PASSWORD = "PASSWORD"
-        private const val NAME_USER: String = "DATA_USER"
+        private const val NAME_USER: String = "NAME_USER"
         const val SHARED_PREFERENCES_USERNAME = "SHARED_PREFERENCES_USERNAME"
     }
 }
