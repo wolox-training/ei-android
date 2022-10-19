@@ -70,15 +70,11 @@ class LoginFragment : Fragment() {
         loginViewModel.login(user)
         binding.progressBar.visibility = View.VISIBLE
         loginViewModel.credentialsOk.observe(viewLifecycleOwner) {
-            binding.progressBar.visibility = View.INVISIBLE
-            if (it == LoginViewModel.ResponseStatus.CredentialsOk) {
-                this.findNavController()?.navigate(R.id.go_to_home)
-            }
-            if (it == LoginViewModel.ResponseStatus.CredentialsFailure) {
-                showToast(INVALID_CREDENTIALS)
-            }
-            if (it == LoginViewModel.ResponseStatus.NetworkError) {
-                showToast(CONNECTION_ERROR)
+            if (it !== null) binding.progressBar.visibility = View.INVISIBLE
+            when (it) {
+                LoginViewModel.ResponseStatus.CredentialsOk -> this.findNavController()?.navigate(R.id.go_to_home)
+                LoginViewModel.ResponseStatus.CredentialsFailure -> showToast(INVALID_CREDENTIALS)
+                LoginViewModel.ResponseStatus.NetworkError -> showToast(CONNECTION_ERROR)
             }
         }
     }
