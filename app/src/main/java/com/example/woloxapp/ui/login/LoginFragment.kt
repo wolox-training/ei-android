@@ -12,7 +12,6 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.example.woloxapp.R
-import com.example.woloxapp.Service.NetworkResult
 import com.example.woloxapp.databinding.LoginFragmentBinding
 import com.example.woloxapp.model.User
 
@@ -70,20 +69,16 @@ class LoginFragment : Fragment() {
     private fun fetchData(user: User) {
         loginViewModel.login(user)
         binding.progressBar.visibility = View.VISIBLE
-        loginViewModel.response.observe(viewLifecycleOwner) {
-                response ->
-            when (response) {
-                is NetworkResult.Success -> {
-                    this.findNavController()?.navigate(R.id.HomePageFragment)
-                }
-                is NetworkResult.Error -> {
-                    response.message?.let { showToast(it) }
-                    binding.progressBar.visibility = View.INVISIBLE
-                }
-                is NetworkResult.Failure -> {
-                    binding.progressBar.visibility = View.INVISIBLE
-                    response.message?.let { showToast(it) }
-                }
+        loginViewModel.credentialsOk.observe(viewLifecycleOwner) {
+            binding.progressBar.visibility = View.INVISIBLE
+            if (it == LoginViewModel.ResponseStatus.CredentialsOk) {
+                this.findNavController()?.navigate(R.id.go_to_home)
+            }
+            if (it == LoginViewModel.ResponseStatus.CredentialsFailure) {
+                showToast(INVALID_CREDENTIALS)
+            }
+            if (it == LoginViewModel.ResponseStatus.NetworkError) {
+                showToast(CONNECTION_ERROR)
             }
         }
     }
@@ -98,5 +93,10 @@ class LoginFragment : Fragment() {
         val toast = Toast.makeText(context, titleString, Toast.LENGTH_SHORT)
         toast.setGravity(Gravity.TOP, toastHorizontal, toastVertical)
         toast.show()
+    }
+
+    companion object {
+        const val CONNECTION_ERROR = "Connection Error"
+        const val INVALID_CREDENTIALS = "Invalid credentials"
     }
 }

@@ -3,15 +3,15 @@ package com.example.woloxapp.ui.login
 import android.app.Application
 import android.content.Context
 import android.content.SharedPreferences
+import android.net.ConnectivityManager
+import android.net.NetworkCapabilities
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
-import com.example.woloxapp.Service.NetworkResult
-import com.example.woloxapp.Service.UserResponse
+import com.example.woloxapp.Service.NetworkResponse
 import com.example.woloxapp.model.User
 import com.example.woloxapp.repository.UserRepository
-import com.google.gson.Gson
 import kotlinx.coroutines.launch
 
 class LoginViewModel(val app: Application) : AndroidViewModel(app) {
@@ -34,8 +34,6 @@ class LoginViewModel(val app: Application) : AndroidViewModel(app) {
     private val editor = sharedPreferencesSaved.edit()
 
     private val userRepository = UserRepository()
-    private val _response: MutableLiveData<NetworkResult<UserResponse>?> = MutableLiveData()
-    val response: MutableLiveData<NetworkResult<UserResponse>?> = _response
 
     private val _userIsLogged = MutableLiveData<Boolean>()
     val userIsLogged: LiveData<Boolean>
@@ -60,35 +58,58 @@ class LoginViewModel(val app: Application) : AndroidViewModel(app) {
         _userIsLogged.value = savedEmail != null && savedPassword != null
     }
 
+    private val _credentialsOk = MutableLiveData<ResponseStatus>(null)
+    val credentialsOk: LiveData<ResponseStatus>
+        get() = _credentialsOk
+
     fun login(user: User) {
-        viewModelScope.launch {
-            _response.value = null
-            userRepository.login(user).collect {
-                    values ->
-                _response.value = values
-                when (response.value) {
-                    is NetworkResult.Success -> {
+        if (hasInternetConnection()) {
+            viewModelScope.launch {
+                when (val responseRepository = userRepository.login(user)) {
+                    is NetworkResponse.Success -> {
                         editor.also {
-                            it.putString(DATA_USER,Gson().toJson(response.value?.data?.data))
+                            it.putString(NAME_USER, responseRepository.response.body()?.data?.name)
                             it.putString(USERNAME, user.email)
                             it.putString(PASSWORD, user.password)
                             it.commit()
+                            _credentialsOk.value = ResponseStatus.CredentialsOk
                         }
-                    }
-                    else -> return@collect
+                    } else -> _credentialsOk.value = ResponseStatus.CredentialsFailure
                 }
             }
-        }
+        } else _credentialsOk.value = ResponseStatus.NetworkError
     }
 
     fun logout() {
         editor.clear()
         editor.commit()
     }
+    private fun hasInternetConnection(): Boolean {
+        val connectivityManager = getApplication<Application>().getSystemService(
+            Context.CONNECTIVITY_SERVICE
+        ) as ConnectivityManager
+
+        val activeNetwork = connectivityManager.activeNetwork ?: return false
+        val capabilities = connectivityManager.getNetworkCapabilities(activeNetwork) ?: return false
+
+        return when {
+            capabilities.hasTransport(NetworkCapabilities.TRANSPORT_WIFI) -> true
+            capabilities.hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR) -> true
+            capabilities.hasTransport(NetworkCapabilities.TRANSPORT_ETHERNET) -> true
+            else -> false
+        }
+    }
+
+    enum class ResponseStatus {
+        CredentialsOk,
+        CredentialsFailure,
+        NetworkError
+    }
+
     companion object {
         const val USERNAME = "USERNAME"
         const val PASSWORD = "PASSWORD"
-        private const val DATA_USER: String = "DATA_USER"
+        private const val NAME_USER: String = "DATA_USER"
         const val SHARED_PREFERENCES_USERNAME = "SHARED_PREFERENCES_USERNAME"
     }
 }
