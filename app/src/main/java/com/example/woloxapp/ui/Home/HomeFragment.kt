@@ -50,25 +50,5 @@ class HomeFragment : Fragment() {
                 }
             }.attach()
         }
-       /* with(binding) {
-             loginViewModel.userIsLogged.observe(viewLifecycleOwner) {
-                if (!it) findNavController().navigate(R.id.loginFragment)
-            }
-            val adapter = fragmentManager?.let { ViewPagerAdapter(it, lifecycle) }
-            viewPager.adapter = adapter
-            TabLayoutMediator(tabLayout, viewPager) { tab, position ->
-                when (position) {
-                    0 -> {
-                        tab.text = "News"
-                    }
-                    1 -> {
-                        tab.text = "Profile"
-                    }
-                }
-            }
-        }
-        */
     }
-
-
 }
