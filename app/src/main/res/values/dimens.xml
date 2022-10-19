@@ -18,5 +18,6 @@
 
 <dimen name="go_back_home_margin_bottom">68dp</dimen>
     <dimen name="home_title_size">50sp</dimen>
+    <dimen name="text_margin">16dp</dimen>
 
 </resources>

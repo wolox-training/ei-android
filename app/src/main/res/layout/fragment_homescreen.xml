@@ -1,31 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:background="@color/cyan"
-    android:layout_gravity="center"
-    tools:context=".MainActivity"
-   >
+    android:orientation="vertical"
+    tools:context=".MainActivity">
 
     <!-- The primary full-screen view. This can be replaced with whatever view
          is needed to present your content, e.g. VideoView, SurfaceView,
          TextureView, etc. -->
 
-    <TextView
-        android:id="@+id/fullscreen_content"
+  <com.google.android.material.tabs.TabLayout
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
+      android:id="@+id/tab_layout"/>
+    <androidx.viewpager2.widget.ViewPager2
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:gravity="center"
-        android:keepScreenOn="true"
-        android:text="@string/dummy_content"
-        android:textColor="@color/white"
-        android:textSize="@dimen/home_title_size"
-        android:textStyle="bold"
-      />
+        android:id="@+id/view_pager"/>
 
-    <Button
+  <!--  <Button
         android:id="@+id/logoutBtn"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -37,6 +31,6 @@
         app:layout_constraintVertical_bias="0.02"
         app:cornerRadius="@dimen/none_radius"
         android:textColor="@color/black"
-        />
+        />-->
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+</LinearLayout>
