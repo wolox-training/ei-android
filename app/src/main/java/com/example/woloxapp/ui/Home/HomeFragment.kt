@@ -13,6 +13,7 @@ import com.example.woloxapp.R
 import com.example.woloxapp.databinding.FragmentHomescreenBinding
 import com.example.woloxapp.ui.Home.tablayout.adapters.ViewPagerAdapter
 import com.example.woloxapp.ui.login.LoginViewModel
+import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 
 class HomeFragment : Fragment() {
@@ -32,36 +33,56 @@ class HomeFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         loginViewModel = ViewModelProvider(this)[LoginViewModel::class.java]
         loginViewModel.getUserModel()
-        val background = getResources().getDrawable(R.drawable.gradient_util);
-        requireActivity().window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LAYOUT_STABLE
-        requireActivity().window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION)
-
-        requireActivity().window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
-        requireActivity().window.setStatusBarColor(getResources().getColor(android.R.color.transparent))
-        requireActivity().window.setBackgroundDrawable(background);
-
+        setStatusBar()
         with(binding) {
             val viewPager2 = viewPager2
             val adapter = ViewPagerAdapter(parentFragmentManager, lifecycle)
             viewPager2.adapter = adapter
-            TabLayoutMediator(tabLayout, viewPager2) {
-                    tab, position ->
+            TabLayoutMediator(tabLayout, viewPager2) { tab, position ->
                 when (position) {
                     0 -> {
-                        tab.text = "News"
-                        tab.icon = activity?.let { ResourcesCompat.getDrawable(it.resources, R.drawable.ic_news_list_off, null) }
+                        tab.text = getString(R.string.tab_news)
+                        tab.icon = activity?.let {
+                            ResourcesCompat.getDrawable(
+                                it.resources,
+                                R.drawable.ic_news_list_off,
+                                null
+                            )
+                        }
                     }
                     1 -> {
-                        tab.text = "Profile"
-                        tab.icon = activity?.let { ResourcesCompat.getDrawable(it.resources, R.drawable.ic_profile_on, null) }
+                        tab.text = getString(R.string.tab_profile)
+                        tab.icon = activity?.let {
+                            ResourcesCompat.getDrawable(
+                                it.resources,
+                                R.drawable.ic_profile_on,
+                                null
+                            )
+                        }
                     }
                 }
             }.attach()
-            for (i in 0..tabLayout.tabCount) {
-                val params = tabLayout.getTabAt(i)?.view?.getChildAt(0)?.layoutParams as LinearLayout.LayoutParams?
-                params?.bottomMargin = -10
-                tabLayout.getTabAt(i)?.view?.getChildAt(0)?.layoutParams = params
-            }
+            setPaddingTabLayout(tabLayout)
+        }
+    }
+
+    private fun setStatusBar() {
+        val background = getResources().getDrawable(R.drawable.gradient_status_bar)
+        val activityWindow = requireActivity().window
+        activityWindow.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LAYOUT_STABLE
+        activityWindow.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION)
+        activityWindow.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
+        activityWindow.setStatusBarColor(getResources().getColor(android.R.color.transparent))
+        activityWindow.setBackgroundDrawable(background)
+    }
+
+    private fun setPaddingTabLayout(tabLayout: TabLayout) {
+        val marginBottom = -10
+        for (i in 0..tabLayout.tabCount) {
+            val params =
+                tabLayout.getTabAt(i)?.view?.getChildAt(0)?.layoutParams as LinearLayout.LayoutParams?
+            params?.bottomMargin = marginBottom
+            tabLayout.getTabAt(i)?.view?.getChildAt(0)?.layoutParams = params
         }
     }
 }

@@ -7,64 +7,54 @@
     android:orientation="vertical"
     tools:context=".MainActivity">
 
-    <!-- The primary full-screen view. This can be replaced with whatever view
-         is needed to present your content, e.g. VideoView, SurfaceView,
-         TextureView, etc. -->
-
     <ImageView
         android:id="@+id/wolox_logo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="10dp"
+        android:layout_marginStart="@dimen/home_margin_left_logo"
         android:layout_marginTop="@dimen/padding_regular_btn"
         android:contentDescription="@string/welcome"
         android:padding="@dimen/extra_small_margin"
         android:src="@drawable/wolox_logo"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/wolox_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="10dp"
+        android:layout_marginStart="@dimen/home_margin_left_logo"
         android:layout_marginTop="@dimen/padding_regular_btn"
         android:text="@string/wolox"
         android:textColor="@color/black"
-        android:textSize="22dp"
+        android:textSize="@dimen/home_logo_text_size"
         app:layout_constraintBottom_toBottomOf="@id/wolox_logo"
         app:layout_constraintStart_toEndOf="@id/wolox_logo"
-        app:layout_constraintTop_toTopOf="parent"
-        />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <com.google.android.material.tabs.TabLayout
         android:id="@+id/tab_layout"
         android:layout_width="match_parent"
-        android:layout_height="46dp"
-        android:elevation="1sp"
+        android:layout_height="@dimen/tablayout_height"
+        android:background="@drawable/border_bottom_tablayout"
+        android:textSize="@dimen/tablayout_text_size"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/wolox_logo"
-        app:tabIndicatorColor="@color/green"
-        app:tabSelectedTextColor="@color/green"
-        android:textSize="12sp"
-        app:tabMode="fixed"
         app:tabIconTint="@drawable/tab_labout_color_state"
-        app:tabTextAppearance="@style/customTabBarStyle"
-        app:tabIndicatorHeight="3dp"
-        android:outlineProvider="none"
-        android:background="@drawable/border_bottom_tablayout"
-        />
+        app:tabIndicatorColor="@color/green"
+        app:tabIndicatorHeight="@dimen/tablayout_height_indicator"
+        app:tabMode="fixed"
+        app:tabSelectedTextColor="@color/green"
+        app:tabTextAppearance="@style/customTabBarStyle" />
 
     <androidx.viewpager2.widget.ViewPager2
         android:id="@+id/view_pager_2"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="0dp"
         android:layout_below="@+id/tab_layout"
-        app:layout_constraintBottom_toBottomOf="@id/tab_layout"
-        tools:layout_editor_absoluteX="51dp" />
-
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tab_layout" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
