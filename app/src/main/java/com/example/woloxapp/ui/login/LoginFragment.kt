@@ -62,20 +62,37 @@ class LoginFragment : Fragment() {
                 }
             }
             loginViewModel.validEmail.observe(viewLifecycleOwner) {
-                if (it!!) loginViewModel.login(User(userName.text.toString(), password.text.toString()))
-                else binding.userName.error = getString(R.string.invalid_username)
-            }
-            loginViewModel.userIsLogged.observe(viewLifecycleOwner) {
-                if (it) findNavController().navigate(R.id.go_to_home)
-                else showToast(R.string.login_failure)
+                if (it!!) fetchData(User(userName.text.toString(), password.text.toString()))
             }
         }
     }
-    private fun showToast(string: Int) {
+    private fun fetchData(user: User) {
+        loginViewModel.login(user)
+        binding.progressBar.visibility = View.VISIBLE
+        loginViewModel.credentialsOk.observe(viewLifecycleOwner) {
+            if (it !== null) binding.progressBar.visibility = View.INVISIBLE
+            when (it) {
+                LoginViewModel.ResponseStatus.CredentialsOk -> this.findNavController()?.navigate(R.id.go_to_home)
+                LoginViewModel.ResponseStatus.CredentialsFailure -> showToast(INVALID_CREDENTIALS)
+                LoginViewModel.ResponseStatus.NetworkError -> showToast(CONNECTION_ERROR)
+            }
+        }
+    }
+    private fun showToast(string: Any) {
         val toastHorizontal = 0
         val toastVertical = 20
-        val toast = Toast.makeText(context, getString(string), Toast.LENGTH_SHORT)
+        val titleString = when (string) {
+            is String -> string
+            is Int -> getString(string)
+            else -> throw IllegalAccessError()
+        }
+        val toast = Toast.makeText(context, titleString, Toast.LENGTH_SHORT)
         toast.setGravity(Gravity.TOP, toastHorizontal, toastVertical)
         toast.show()
+    }
+
+    companion object {
+        const val CONNECTION_ERROR = "Connection Error"
+        const val INVALID_CREDENTIALS = "Invalid credentials"
     }
 }
