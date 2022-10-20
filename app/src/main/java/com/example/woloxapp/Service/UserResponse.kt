@@ -10,7 +10,7 @@ data class DataUserResponse(
     @SerializedName("provider") val provider: String,
     val uid: String,
     val allowPasswordChange: Boolean,
-    @SerializedName("name") val name: String,
+    val name: String,
     @SerializedName("nickname") val nickname: String,
     @SerializedName("image") val image: String? = null
 )
