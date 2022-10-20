@@ -24,9 +24,7 @@
     <string name="wolox">Wolox</string>
     <!-- TODO: Signup -->
     <string name="go_back_btn">Volver</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
-
+    <!-- TODO: Tabs -->
     <string name="tab_news">News</string>
     <string name="tab_profile">Profile</string>
 </resources>
