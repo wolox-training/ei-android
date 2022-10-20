@@ -32,8 +32,14 @@ class HomeFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         loginViewModel = ViewModelProvider(this)[LoginViewModel::class.java]
         loginViewModel.getUserModel()
+        val background = getResources().getDrawable(R.drawable.gradient_util);
         requireActivity().window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LAYOUT_STABLE
         requireActivity().window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION)
+
+        requireActivity().window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+        requireActivity().window.setStatusBarColor(getResources().getColor(android.R.color.transparent))
+        requireActivity().window.setBackgroundDrawable(background);
+
         with(binding) {
             val viewPager2 = viewPager2
             val adapter = ViewPagerAdapter(parentFragmentManager, lifecycle)

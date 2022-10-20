@@ -41,7 +41,7 @@
     <com.google.android.material.tabs.TabLayout
         android:id="@+id/tab_layout"
         android:layout_width="match_parent"
-        android:layout_height="45dp"
+        android:layout_height="46dp"
         android:elevation="1sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -54,6 +54,7 @@
         app:tabTextAppearance="@style/customTabBarStyle"
         app:tabIndicatorHeight="3dp"
         android:outlineProvider="none"
+        android:background="@drawable/border_bottom_tablayout"
         />
 
     <androidx.viewpager2.widget.ViewPager2
