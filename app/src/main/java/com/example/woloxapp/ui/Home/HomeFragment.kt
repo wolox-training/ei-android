@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.WindowManager
+import android.widget.LinearLayout
 import androidx.core.content.res.ResourcesCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
@@ -12,7 +13,6 @@ import com.example.woloxapp.R
 import com.example.woloxapp.databinding.FragmentHomescreenBinding
 import com.example.woloxapp.ui.Home.tablayout.adapters.ViewPagerAdapter
 import com.example.woloxapp.ui.login.LoginViewModel
-import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 
 class HomeFragment : Fragment() {
@@ -43,12 +43,19 @@ class HomeFragment : Fragment() {
                 when (position) {
                     0 -> {
                         tab.text = "News"
+                        tab.icon = activity?.let { ResourcesCompat.getDrawable(it.resources, R.drawable.ic_news_list_off, null) }
                     }
                     1 -> {
                         tab.text = "Profile"
+                        tab.icon = activity?.let { ResourcesCompat.getDrawable(it.resources, R.drawable.ic_profile_on, null) }
                     }
                 }
             }.attach()
+            for (i in 0..tabLayout.tabCount) {
+                val params = tabLayout.getTabAt(i)?.view?.getChildAt(0)?.layoutParams as LinearLayout.LayoutParams?
+                params?.bottomMargin = -10
+                tabLayout.getTabAt(i)?.view?.getChildAt(0)?.layoutParams = params
+            }
         }
     }
 }
