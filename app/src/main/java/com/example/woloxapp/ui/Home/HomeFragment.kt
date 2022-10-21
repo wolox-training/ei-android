@@ -35,7 +35,6 @@ class HomeFragment : Fragment() {
         loginViewModel.getUserModel()
         setStatusBar()
         with(binding) {
-            val viewPager2 = viewPager2
             val adapter = ViewPagerAdapter(parentFragmentManager, lifecycle)
             viewPager2.adapter = adapter
             TabLayoutMediator(tabLayout, viewPager2) { tab, position ->
