@@ -5,15 +5,31 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import com.example.woloxapp.R
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.woloxapp.databinding.FragmentNewsBinding
+import com.example.woloxapp.ui.Home.tablayout.adapters.NewsAdapter
 
 class NewsFragment : Fragment() {
-
+    private lateinit var _binding: FragmentNewsBinding
+    private val binding get() = _binding
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        return inflater.inflate(R.layout.fragment_news, container, false)
+    ): View {
+        _binding = FragmentNewsBinding.inflate(inflater, container, false)
+        return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        with(binding) {
+            recyclerNews.layoutManager = LinearLayoutManager(context)
+            recyclerNews.adapter = NewsAdapter(NewsProvider.newsList)
+            if (NewsProvider.newsList.isEmpty()) emptyNews.visibility =
+                View.VISIBLE
+            swipeRefresh.setOnRefreshListener {
+                swipeRefresh.isRefreshing = false
+            }
+        }
     }
 }
