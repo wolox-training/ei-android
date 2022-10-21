@@ -11,6 +11,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.example.woloxapp.R
 import com.example.woloxapp.databinding.FragmentHomescreenBinding
+import com.example.woloxapp.ui.Home.tablayout.adapters.PagesConstants
 import com.example.woloxapp.ui.Home.tablayout.adapters.ViewPagerAdapter
 import com.example.woloxapp.ui.login.LoginViewModel
 import com.google.android.material.tabs.TabLayout
@@ -39,7 +40,7 @@ class HomeFragment : Fragment() {
             viewPager2.adapter = adapter
             TabLayoutMediator(tabLayout, viewPager2) { tab, position ->
                 when (position) {
-                    0 -> {
+                    PagesConstants.NEWS_FRAGMENT_INDEX -> {
                         tab.text = getString(R.string.tab_news)
                         tab.icon = activity?.let {
                             ResourcesCompat.getDrawable(
@@ -49,7 +50,7 @@ class HomeFragment : Fragment() {
                             )
                         }
                     }
-                    1 -> {
+                    PagesConstants.PROFILE_FRAGMENT_INDEX -> {
                         tab.text = getString(R.string.tab_profile)
                         tab.icon = activity?.let {
                             ResourcesCompat.getDrawable(
@@ -83,6 +84,7 @@ class HomeFragment : Fragment() {
             tabLayout.getTabAt(i)?.view?.getChildAt(0)?.layoutParams = params
         }
     }
+
     companion object {
         private const val marginBottom: Int = -10
     }
