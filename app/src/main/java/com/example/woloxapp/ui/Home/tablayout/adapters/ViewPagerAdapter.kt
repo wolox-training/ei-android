@@ -15,20 +15,9 @@ class ViewPagerAdapter(fragmentManager: FragmentManager, lifecycle: Lifecycle) :
 
     override fun createFragment(position: Int): Fragment {
         return when (position) {
-            NEWS_FRAGMENT_INDEX -> {
-                NewsFragment()
-            }
-            PROFILE_FRAGMENT_INDEX -> {
-                ProfileFragment()
-            }
-            else -> {
-                Fragment()
-            }
+            PagesConstants.NEWS_FRAGMENT_INDEX -> NewsFragment()
+            PagesConstants.PROFILE_FRAGMENT_INDEX -> ProfileFragment()
+            else -> Fragment()
         }
-    }
-
-    companion object {
-        const val NEWS_FRAGMENT_INDEX = 0
-        const val PROFILE_FRAGMENT_INDEX = 1
     }
 }
