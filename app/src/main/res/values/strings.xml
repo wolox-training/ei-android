@@ -27,4 +27,5 @@
     <!-- TODO: Tabs -->
     <string name="tab_news">News</string>
     <string name="tab_profile">Profile</string>
+    <string name="empty_news">No news for now</string>
 </resources>

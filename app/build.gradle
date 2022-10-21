@@ -53,6 +53,7 @@ dependencies {
         transitive = true
     }
     annotationProcessor 'com.github.bumptech.glide:compiler:4.14.2'
+    implementation("androidx.swiperefreshlayout:swiperefreshlayout:1.1.0")
     implementation 'org.ocpsoft.prettytime:prettytime:5.0.4.Final'
     testImplementation 'junit:junit:4.+'
     androidTestImplementation 'androidx.test.ext:junit:1.1.3'

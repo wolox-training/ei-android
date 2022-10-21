@@ -1,6 +1,6 @@
 package com.example.woloxapp.model
 
-data class News(
+data class New(
     val id: Int,
     val title: String,
     val description: String,

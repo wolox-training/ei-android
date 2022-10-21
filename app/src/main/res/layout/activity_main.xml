@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:paddingBottom="@dimen/padding_bottom_big"
+    android:paddingBottom="0dp"
     android:theme="@style/Theme.Woloxapp"
     tools:context=".MainActivity"
     android:background="@color/white"
