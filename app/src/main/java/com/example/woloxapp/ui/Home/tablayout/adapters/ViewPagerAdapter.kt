@@ -7,21 +7,28 @@ import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.example.woloxapp.ui.Home.tablayout.fragments.NewsFragment
 import com.example.woloxapp.ui.Home.tablayout.fragments.ProfileFragment
 
-class ViewPagerAdapter(fragmentManager: FragmentManager, lifecycle: Lifecycle) : FragmentStateAdapter(fragmentManager, lifecycle) {
+class ViewPagerAdapter(fragmentManager: FragmentManager, lifecycle: Lifecycle) :
+    FragmentStateAdapter(fragmentManager, lifecycle) {
     override fun getItemCount(): Int {
         return 2
     }
+
     override fun createFragment(position: Int): Fragment {
         return when (position) {
-            0 -> {
+            NEWS_FRAGMENT_INDEX -> {
                 NewsFragment()
             }
-            1 -> {
+            PROFILE_FRAGMENT_INDEX -> {
                 ProfileFragment()
             }
             else -> {
                 Fragment()
             }
         }
+    }
+
+    companion object {
+        const val NEWS_FRAGMENT_INDEX = 0
+        const val PROFILE_FRAGMENT_INDEX = 1
     }
 }

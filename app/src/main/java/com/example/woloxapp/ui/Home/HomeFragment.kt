@@ -76,12 +76,14 @@ class HomeFragment : Fragment() {
     }
 
     private fun setPaddingTabLayout(tabLayout: TabLayout) {
-        val marginBottom = -10
         for (i in 0..tabLayout.tabCount) {
             val params =
                 tabLayout.getTabAt(i)?.view?.getChildAt(0)?.layoutParams as LinearLayout.LayoutParams?
             params?.bottomMargin = marginBottom
             tabLayout.getTabAt(i)?.view?.getChildAt(0)?.layoutParams = params
         }
+    }
+    companion object {
+        private const val marginBottom: Int = -10
     }
 }
