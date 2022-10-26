@@ -25,7 +25,22 @@
         android:gravity="center"
         android:textSize="@dimen/big_text_tabs"
         android:textAlignment="center" />
-
+    <ProgressBar
+        android:id="@+id/progress_bar_news"
+        style="?android:attr/progressBarStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:translationZ="@dimen/small_footer_text_size"
+        android:layout_gravity="center"
+        android:visibility="invisible"
+        android:indeterminateTint="@color/cyan"
+        />
+<!--
+  app:layout_constraintBottom_toBottomOf="parent"
+ app:layout_constraintEnd_toEndOf="@id/signupBtn"
+        app:layout_constraintStart_toStartOf="@id/signupBtn"
+        app:layout_constraintTop_toBottomOf="@id/signupBtn"
+-->
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/profile_edit_fab"
         android:layout_width="wrap_content"

@@ -12,6 +12,7 @@ import androidx.lifecycle.viewModelScope
 import com.example.woloxapp.Service.NetworkResponse
 import com.example.woloxapp.model.User
 import com.example.woloxapp.repository.UserRepository
+import com.example.woloxapp.utils.Constants
 import kotlinx.coroutines.launch
 
 class LoginViewModel(val app: Application) : AndroidViewModel(app) {
@@ -22,7 +23,11 @@ class LoginViewModel(val app: Application) : AndroidViewModel(app) {
     val userPassword: LiveData<String?>
         get() = _userPassword
 
-    private val sharedPreferencesSaved: SharedPreferences = app.applicationContext.getSharedPreferences(SHARED_PREFERENCES_USERNAME, Context.MODE_PRIVATE)
+    private val sharedPreferencesSaved: SharedPreferences =
+        app.applicationContext.getSharedPreferences(
+            Constants.SHARED_PREFERENCES_USERNAME,
+            Context.MODE_PRIVATE
+        )
 
     private val _emptyFields = MutableLiveData<Boolean?>()
     val emptyFieldsError: MutableLiveData<Boolean?>
@@ -33,7 +38,7 @@ class LoginViewModel(val app: Application) : AndroidViewModel(app) {
         get() = _validEmail
     private val editor = sharedPreferencesSaved.edit()
 
-    private val userRepository = UserRepository()
+    private val userRepository = UserRepository(app.applicationContext)
 
     private val _userIsLogged = MutableLiveData<Boolean>()
     val userIsLogged: LiveData<Boolean>
@@ -44,18 +49,24 @@ class LoginViewModel(val app: Application) : AndroidViewModel(app) {
         if (emptyField) _emptyFields.value = emptyField
         else emailValidation(emailValue)
     }
+
     private fun emailValidation(emailValue: String) {
-        _validEmail.value = android.util.Patterns.EMAIL_ADDRESS.matcher(emailValue.trim()).matches()
+        _validEmail.value =
+            android.util.Patterns.EMAIL_ADDRESS.matcher(emailValue.trim())
+                .matches()
     }
 
     fun getUserModel() {
-        val savedEmail = sharedPreferencesSaved.getString(USERNAME, null)
-        val savedPassword = sharedPreferencesSaved.getString(PASSWORD, null)
+        val savedEmail =
+            sharedPreferencesSaved.getString(Constants.USERNAME, Constants.emptyString)
+        val savedPassword =
+            sharedPreferencesSaved.getString(Constants.PASSWORD, Constants.emptyString)
         if (savedEmail != null && savedPassword != null) {
             _userEmail.value = savedEmail
             _userPassword.value = savedPassword
         }
-        _userIsLogged.value = savedEmail != null && savedPassword != null
+        _userIsLogged.value =
+            savedEmail!!.isNotEmpty() && savedPassword!!.isNotEmpty()
     }
 
     private val _credentialsOk = MutableLiveData<ResponseStatus>(null)
@@ -68,25 +79,46 @@ class LoginViewModel(val app: Application) : AndroidViewModel(app) {
                 when (val responseRepository = userRepository.login(user)) {
                     is NetworkResponse.Success -> {
                         editor.also {
-                            it.putString(NAME_USER, responseRepository.response.body()?.data?.name)
-                            it.putString(USERNAME, user.email)
-                            it.putString(PASSWORD, user.password)
+                            it.putString(
+                                Constants.NAME_USER,
+                                responseRepository.response.body()?.data?.name
+                            )
+                            it.putString(Constants.USERNAME, user.email)
+                            it.putString(Constants.PASSWORD, user.password)
+                            it.putString(
+                                Constants.ACCESS_TOKEN,
+                                responseRepository.response.headers()[access_token]
+                            )
+                            it.putString(
+                                Constants.CLIENT,
+                                responseRepository.response.headers()[client]
+                            )
+                            it.putString(
+                                Constants.UID,
+                                responseRepository.response.headers()[uid]
+                            )
                             it.commit()
                             _credentialsOk.value = ResponseStatus.CredentialsOk
                         }
-                    } else -> _credentialsOk.value = ResponseStatus.CredentialsFailure
+                    }
+                    else ->
+                        _credentialsOk.value =
+                            ResponseStatus.CredentialsFailure
                 }
             }
         } else _credentialsOk.value = ResponseStatus.NetworkError
     }
 
     private fun hasInternetConnection(): Boolean {
-        val connectivityManager = getApplication<Application>().getSystemService(
-            Context.CONNECTIVITY_SERVICE
-        ) as ConnectivityManager
+        val connectivityManager =
+            getApplication<Application>().getSystemService(
+                Context.CONNECTIVITY_SERVICE
+            ) as ConnectivityManager
 
         val activeNetwork = connectivityManager.activeNetwork ?: return false
-        val capabilities = connectivityManager.getNetworkCapabilities(activeNetwork) ?: return false
+        val capabilities =
+            connectivityManager.getNetworkCapabilities(activeNetwork)
+                ?: return false
 
         return when {
             capabilities.hasTransport(NetworkCapabilities.TRANSPORT_WIFI) -> true
@@ -103,9 +135,8 @@ class LoginViewModel(val app: Application) : AndroidViewModel(app) {
     }
 
     companion object {
-        const val USERNAME = "USERNAME"
-        const val PASSWORD = "PASSWORD"
-        private const val NAME_USER: String = "NAME_USER"
-        const val SHARED_PREFERENCES_USERNAME = "SHARED_PREFERENCES_USERNAME"
+        const val access_token = "Access-Token"
+        const val client = "Client"
+        const val uid = "Uid"
     }
 }
