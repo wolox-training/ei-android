@@ -9,6 +9,7 @@ import android.widget.LinearLayout
 import androidx.core.content.res.ResourcesCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import com.example.woloxapp.R
 import com.example.woloxapp.databinding.FragmentHomescreenBinding
 import com.example.woloxapp.ui.Home.tablayout.adapters.PagesConstants
@@ -36,6 +37,9 @@ class HomeFragment : Fragment() {
         loginViewModel.getUserModel()
         setStatusBar()
         with(binding) {
+            loginViewModel.userIsLogged.observe(viewLifecycleOwner) {
+                if (!it) findNavController().navigate(R.id.loginFragment)
+            }
             val adapter = ViewPagerAdapter(parentFragmentManager, lifecycle)
             viewPager2.adapter = adapter
             TabLayoutMediator(tabLayout, viewPager2) { tab, position ->

@@ -3,17 +3,16 @@ package com.example.woloxapp.ui.login
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
-import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.example.woloxapp.R
 import com.example.woloxapp.databinding.LoginFragmentBinding
 import com.example.woloxapp.model.User
+import com.example.woloxapp.utils.ToastUtil
 
 class LoginFragment : Fragment() {
     private lateinit var loginViewModel: LoginViewModel
@@ -27,6 +26,7 @@ class LoginFragment : Fragment() {
         _binding = LoginFragmentBinding.inflate(inflater, container, false)
         return binding.root
     }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         val urlWolox = getText(R.string.wolox_web).toString()
         super.onViewCreated(view, savedInstanceState)
@@ -40,15 +40,26 @@ class LoginFragment : Fragment() {
             signupBtn.setOnClickListener {
                 findNavController().navigate(R.id.go_to_signup)
             }
-            woloxPhone.setOnClickListener { startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(urlWolox))) }
+            woloxPhone.setOnClickListener {
+                startActivity(
+                    Intent(
+                        Intent.ACTION_VIEW,
+                        Uri.parse(urlWolox)
+                    )
+                )
+            }
             loginViewModel.emptyFieldsError.observe(viewLifecycleOwner) {
                 it?.let {
-                    showToast(R.string.required_fields)
+                    ToastUtil().showToast(
+                        R.string.required_fields,
+                        requireContext()
+                    )
                 }
             }
             loginViewModel.validEmail.observe(viewLifecycleOwner) {
                 if (it == false) {
-                    binding.userName.error = getString(R.string.invalid_username)
+                    binding.userName.error =
+                        getString(R.string.invalid_username)
                 }
             }
             loginViewModel.userEmail.observe(viewLifecycleOwner) {
@@ -62,33 +73,34 @@ class LoginFragment : Fragment() {
                 }
             }
             loginViewModel.validEmail.observe(viewLifecycleOwner) {
-                if (it!!) fetchData(User(userName.text.toString(), password.text.toString()))
+                if (it!!) fetchData(
+                    User(
+                        userName.text.toString(),
+                        password.text.toString()
+                    )
+                )
             }
         }
     }
+
     private fun fetchData(user: User) {
         loginViewModel.login(user)
         binding.progressBar.visibility = View.VISIBLE
         loginViewModel.credentialsOk.observe(viewLifecycleOwner) {
-            if (it !== null) binding.progressBar.visibility = View.INVISIBLE
+            if (it != null) binding.progressBar.visibility = View.INVISIBLE
             when (it) {
-                LoginViewModel.ResponseStatus.CredentialsOk -> this.findNavController()?.navigate(R.id.go_to_home)
-                LoginViewModel.ResponseStatus.CredentialsFailure -> showToast(INVALID_CREDENTIALS)
-                LoginViewModel.ResponseStatus.NetworkError -> showToast(CONNECTION_ERROR)
+                LoginViewModel.ResponseStatus.CredentialsOk -> this.findNavController()
+                    .navigate(R.id.go_to_home)
+                LoginViewModel.ResponseStatus.CredentialsFailure -> ToastUtil().showToast(
+                    INVALID_CREDENTIALS,
+                    requireContext()
+                )
+                LoginViewModel.ResponseStatus.NetworkError -> ToastUtil().showToast(
+                    CONNECTION_ERROR,
+                    requireContext()
+                )
             }
         }
-    }
-    private fun showToast(string: Any) {
-        val toastHorizontal = 0
-        val toastVertical = 20
-        val titleString = when (string) {
-            is String -> string
-            is Int -> getString(string)
-            else -> throw IllegalAccessError()
-        }
-        val toast = Toast.makeText(context, titleString, Toast.LENGTH_SHORT)
-        toast.setGravity(Gravity.TOP, toastHorizontal, toastVertical)
-        toast.show()
     }
 
     companion object {
