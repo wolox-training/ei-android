@@ -36,54 +36,59 @@ class NewsFragment : Fragment() {
                     (recyclerNews.adapter as NewsAdapter).moreNews(it.page)
                     (recyclerNews.adapter as NewsAdapter).notifyDataSetChanged()
                 }
-            }
-            recyclerNews.addOnScrollListener(
-                InnerScrollObserver() {
-                    newsViewModel.getData(false)
-                }
-            )
-            newsViewModel.newListOk.observe(viewLifecycleOwner) {
-                if (it != null) binding.progressBarNews.visibility =
-                    View.INVISIBLE
-                when (it) {
-                    NewsViewModel.ResponseStatus.NewListOk -> showEmptyTextView(
-                        false
-                    )
-                    NewsViewModel.ResponseStatus.NewListError,
-                    NewsViewModel.ResponseStatus.NewListFailure -> newListErrorMessages()
-                    null -> binding.progressBarNews.visibility = View.VISIBLE
-                }
-            }
-            swipeRefresh.setOnRefreshListener {
-                newsViewModel.getData(true)
+                recyclerNews.addOnScrollListener(
+                    InnerScrollObserver()
+                )
                 newsViewModel.newListOk.observe(viewLifecycleOwner) {
-                    swipeRefresh.isRefreshing = it == null
+                    if (it != null) binding.progressBarNews.visibility =
+                        View.INVISIBLE
+                    when (it) {
+                        NewsViewModel.ResponseStatus.NewListOk -> {
+                            binding.progressAddedNews.visibility =
+                                View.INVISIBLE
+                            showEmptyTextView(
+                                false
+                            )
+                        }
+                        NewsViewModel.ResponseStatus.NewListError,
+                        NewsViewModel.ResponseStatus.NewListFailure -> newListErrorMessages()
+                        null ->
+                            binding.progressBarNews.visibility =
+                                View.VISIBLE
+                    }
+                }
+                swipeRefresh.setOnRefreshListener {
+                    newsViewModel.getData(true)
+                    newsViewModel.newListOk.observe(viewLifecycleOwner) {
+                        swipeRefresh.isRefreshing = it == null
+                    }
+                }
+            }
+            newsViewModel.isCantScroll.observe(viewLifecycleOwner) {
+                if (it) {
+                    binding.progressAddedNews.visibility =
+                        View.VISIBLE
+                    newsViewModel.getData(false)
                 }
             }
         }
     }
 
-    inner class InnerScrollObserver(
-        private val getMoreData: () -> Unit
-    ) : RecyclerView.OnScrollListener() {
-        override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
-            super.onScrolled(recyclerView, dx, dy)
-            childCount = recyclerView.childCount
-            totalCount = recyclerView.layoutManager!!.itemCount
-            firstItem =
-                (recyclerView.layoutManager as LinearLayoutManager).findFirstVisibleItemPosition()
-            getNews =
-                !loadingNews && (totalCount - childCount) <= (firstItem + visiblePort)
-            when (getNews) {
-                false -> if (totalCount > lastTotal) {
-                    loadingNews = false
-                    lastTotal = totalCount
-                }
-                true -> {
-                    getMoreData.invoke()
-                    loadingNews = true
-                }
-            }
+    inner class InnerScrollObserver : RecyclerView.OnScrollListener() {
+        override fun onScrollStateChanged(
+            recyclerView: RecyclerView,
+            newState: Int
+        ) {
+            super.onScrollStateChanged(recyclerView, newState)
+            invokeGetMoreData()
+        }
+    }
+
+    private fun invokeGetMoreData() {
+        with(binding) {
+            val cantScroll = newsViewModel.isLoading.value == true &&
+                !recyclerNews.canScrollVertically(1)
+            newsViewModel.isCantScroll.value = cantScroll
         }
     }
 
@@ -101,13 +106,7 @@ class NewsFragment : Fragment() {
     }
 
     companion object {
-        const val visiblePort = 8
-        const val CONNECTION_ERROR = "Couldn't load news right now, try again"
-        var lastTotal = 0
-        var firstItem = 0
-        var childCount = 0
-        var totalCount = 0
-        var loadingNews = true
-        var getNews = false
+        const val CONNECTION_ERROR =
+            "Couldn't load news right now, try again"
     }
 }

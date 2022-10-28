@@ -13,7 +13,7 @@ import kotlinx.coroutines.launch
 class NewsViewModel(val app: Application) : AndroidViewModel(app) {
     private val newsRepository: NewsRepository =
         NewsRepository(app.applicationContext)
-    private val _newsResponse = MutableLiveData<NewsResponse>()
+    private val _newsResponse = MutableLiveData<NewsResponse>(null)
     val newsResponse: LiveData<NewsResponse>
         get() = _newsResponse
 
@@ -23,8 +23,17 @@ class NewsViewModel(val app: Application) : AndroidViewModel(app) {
 
     private val _currentPage = MutableLiveData<Number>(1)
 
+    private val _isLoading = MutableLiveData<Boolean>(false)
+    val isLoading: LiveData<Boolean>
+        get() = _isLoading
+
+    private val _isCantScroll = MutableLiveData<Boolean>(false)
+    val isCantScroll: MutableLiveData<Boolean>
+        get() = _isCantScroll
+
     fun getData(firstPage: Boolean?) {
         viewModelScope.launch {
+            _isLoading.value = false
             if (firstPage == true) _currentPage.value = 1
             when (
                 val responseRepository =
@@ -35,6 +44,7 @@ class NewsViewModel(val app: Application) : AndroidViewModel(app) {
                     _currentPage.value =
                         responseRepository.response.body()?.next_page
                     _newListOk.value = ResponseStatus.NewListOk
+                    _isLoading.value = true
                 }
                 is NetworkResponse.Error -> {
                     _newListOk.value = ResponseStatus.NewListError
