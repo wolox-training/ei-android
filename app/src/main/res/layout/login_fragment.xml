@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity"
+    >
+
+    <RelativeLayout
+        android:id="@+id/containerLogo"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/height_container_logo"
+        android:gravity="top"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        >
+
+        <ImageView
+            android:id="@+id/woloxCoverImage"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/height_cover_image_wolox"
+            android:background="@drawable/login_cover"
+            android:src="@drawable/gradient_util"
+            />
+
+        <ImageView
+            android:id="@+id/woloxLogo"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/height_image_logo_wolox"
+            android:layout_alignParentBottom="true"
+            android:src="@drawable/wolox_logo" />
+    </RelativeLayout>
+
+    <EditText
+        android:id="@+id/userName"
+        android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/fragment_horizontal_margin"
+        android:gravity="left"
+        android:hint="@string/first_name"
+        android:inputType="textEmailAddress|textNoSuggestions"
+        android:maxLines="1"
+        android:minHeight="@dimen/minHeightEditText"
+        android:textColorHint="@color/hintGray"
+        app:layout_constraintBottom_toTopOf="@id/password"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/containerLogo"
+        app:layout_constraintVertical_chainStyle="packed"
+        android:imeOptions="actionDone"
+        />
+
+    <EditText
+        android:id="@+id/password"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/fragment_horizontal_margin"
+        android:layout_marginTop="@dimen/medium_padding"
+        android:gravity="left"
+        android:hint="@string/last_name"
+        android:inputType="textPassword"
+        android:maxLines="1"
+        android:minHeight="@dimen/minHeightEditText"
+        android:textColorHint="@color/hintGray"
+        app:layout_constraintBottom_toTopOf="@id/loginBtn"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/userName"
+        android:imeOptions="actionDone"
+        />
+
+    <Button
+        android:id="@+id/loginBtn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/padding_regular_btn"
+        android:layout_marginHorizontal="@dimen/fragment_horizontal_margin"
+        android:layout_marginTop="@dimen/medium_padding"
+        android:text="@string/login_btn"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@id/password"
+        app:layout_constraintStart_toStartOf="@id/password"
+        app:layout_constraintTop_toBottomOf="@id/password"
+        app:cornerRadius="@dimen/none_radius"
+        android:backgroundTint="@color/white"
+        />
+
+    <Button
+        android:id="@+id/signupBtn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/padding_regular_btn"
+        android:layout_marginHorizontal="@dimen/fragment_horizontal_margin"
+        android:text="@string/signup_btn"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@id/loginBtn"
+        app:layout_constraintStart_toStartOf="@id/loginBtn"
+        app:layout_constraintTop_toBottomOf="@id/loginBtn"
+        app:layout_constraintVertical_bias="0.02"
+        app:cornerRadius="@dimen/none_radius"
+        android:textColor="@color/white"
+        />
+    <ProgressBar
+        android:id="@+id/progressBar"
+        style="?android:attr/progressBarStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:translationZ="@dimen/small_footer_text_size"
+        android:visibility="invisible"
+        android:indeterminateTint="@color/cyan"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@id/signupBtn"
+        app:layout_constraintStart_toStartOf="@id/signupBtn"
+        app:layout_constraintTop_toBottomOf="@id/signupBtn"
+       />
+    <TextView
+        android:id="@+id/woloxPhone"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/extra_small_margin"
+        android:gravity="bottom|center_horizontal"
+        android:text="@string/footer_text"
+        android:textSize="@dimen/small_footer_text_size"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
