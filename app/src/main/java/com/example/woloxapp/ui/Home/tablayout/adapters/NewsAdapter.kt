@@ -5,10 +5,22 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.woloxapp.R
 import com.example.woloxapp.model.News
-import java.util.*
 
-class NewsAdapter(private val newsList: MutableList<News>) :
+class NewsAdapter(
+    private val newsList: MutableList<News>
+) :
     RecyclerView.Adapter<NewsViewHolder>() {
+
+    private lateinit var mListener: OnItemClickListener
+
+    interface OnItemClickListener {
+        fun onItemClick(position: Int, newsList: News)
+    }
+
+    fun setOnItemClickListener(listener: OnItemClickListener) {
+        mListener = listener
+    }
+
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int
@@ -19,7 +31,8 @@ class NewsAdapter(private val newsList: MutableList<News>) :
                 R.layout.item_new,
                 parent,
                 false
-            )
+            ),
+            mListener
         )
     }
 

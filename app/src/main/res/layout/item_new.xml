@@ -6,7 +6,9 @@
     android:layout_height="wrap_content"
     android:background="@drawable/border_bottom_tablayout"
     android:paddingHorizontal="@dimen/fragment_horizontal_margin"
-    android:paddingVertical="@dimen/fragment_vertical_margin">
+    android:paddingVertical="@dimen/fragment_vertical_margin"
+    android:id="@+id/newsLayout"
+    >
 
     <ImageView
         android:id="@+id/ivNews"

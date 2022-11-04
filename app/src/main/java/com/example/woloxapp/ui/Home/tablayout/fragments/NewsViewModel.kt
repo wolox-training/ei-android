@@ -13,6 +13,7 @@ import kotlinx.coroutines.launch
 class NewsViewModel(val app: Application) : AndroidViewModel(app) {
     private val newsRepository: NewsRepository =
         NewsRepository(app.applicationContext)
+
     private val _newsResponse = MutableLiveData<NewsResponse>(null)
     val newsResponse: LiveData<NewsResponse>
         get() = _newsResponse

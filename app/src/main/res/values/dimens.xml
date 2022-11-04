@@ -42,4 +42,16 @@
     <dimen name="super_small_margin">5dp</dimen>
     <dimen name="small_margin">10dp</dimen>
     <dimen name="max_width_new">250dp</dimen>
+
+    <!-- Fragment New Detail -->
+    <dimen name="back_ic_size">20dp</dimen>
+    <dimen name="margin_left_custom_toolbar">30dp</dimen>
+    <dimen name="text_size_custom_toolbar">15sp</dimen>
+    <dimen name="new_detail_image_size">350dp</dimen>
+    <dimen name="new_detail_comment_size">15sp</dimen>
+    <dimen name="new_detail_commenter_size">26sp</dimen>
+    <dimen name="new_detail_comment_line_height">25dp</dimen>
+    <dimen name="new_detail_image_like_size">50dp</dimen>
+    <dimen name="new_detail_image_like_margin_top">40dp</dimen>
+
 </resources>

@@ -13,6 +13,8 @@ class Constants {
         const val CLIENT_HEADERS: String = "Client"
         const val UID_HEADERS: String = "Uid"
         const val TIME_AGO_FORMAT = "yyyy-MM-dd'T'HH:mm:ss"
+        const val DATE_FORMAT = "yyyy-MM-dd"
         const val emptyString = ""
+        const val NEW_ID = "new_id"
     }
 }
