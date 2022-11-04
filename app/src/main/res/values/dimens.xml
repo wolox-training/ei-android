@@ -49,7 +49,9 @@
     <dimen name="text_size_custom_toolbar">15sp</dimen>
     <dimen name="new_detail_image_size">350dp</dimen>
     <dimen name="new_detail_comment_size">15sp</dimen>
+    <dimen name="new_detail_comment_margin_top">15sp</dimen>
     <dimen name="new_detail_commenter_size">26sp</dimen>
+    <dimen name="new_detail_commenter_width">300dp</dimen>
     <dimen name="new_detail_comment_line_height">25dp</dimen>
     <dimen name="new_detail_image_like_size">50dp</dimen>
     <dimen name="new_detail_image_like_margin_top">40dp</dimen>
