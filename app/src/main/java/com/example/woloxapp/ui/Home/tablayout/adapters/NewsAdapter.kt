@@ -13,10 +13,6 @@ class NewsAdapter(
 
     private lateinit var mListener: OnItemClickListener
 
-    interface OnItemClickListener {
-        fun onItemClick(position: Int, newsList: News)
-    }
-
     fun setOnItemClickListener(listener: OnItemClickListener) {
         mListener = listener
     }
@@ -51,5 +47,9 @@ class NewsAdapter(
     fun moreNews(newsItems: List<News>) {
         newsList.addAll(newsItems)
         notifyDataSetChanged()
+    }
+
+    interface OnItemClickListener {
+        fun onItemClick(position: Int, newsList: News)
     }
 }
