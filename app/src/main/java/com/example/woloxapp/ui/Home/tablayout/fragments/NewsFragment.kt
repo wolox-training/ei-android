@@ -1,5 +1,6 @@
 package com.example.woloxapp.ui.Home.tablayout.fragments
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -8,8 +9,11 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.woloxapp.NewDetailActivity
 import com.example.woloxapp.databinding.FragmentNewsBinding
+import com.example.woloxapp.model.News
 import com.example.woloxapp.ui.Home.tablayout.adapters.NewsAdapter
+import com.example.woloxapp.utils.Constants
 import com.example.woloxapp.utils.ToastUtil
 
 class NewsFragment : Fragment() {
@@ -29,7 +33,8 @@ class NewsFragment : Fragment() {
         newsViewModel = ViewModelProvider(this)[NewsViewModel::class.java]
         with(binding) {
             recyclerNews.layoutManager = LinearLayoutManager(context)
-            recyclerNews.adapter = NewsAdapter(mutableListOf())
+            recyclerNews.adapter =
+                NewsAdapter(mutableListOf())
             newsViewModel.getData(false)
             newsViewModel.newsResponse.observe(viewLifecycleOwner) {
                 it?.let {
@@ -71,6 +76,21 @@ class NewsFragment : Fragment() {
                     newsViewModel.getData(false)
                 }
             }
+            (recyclerNews.adapter as NewsAdapter).setOnItemClickListener(object :
+                    NewsAdapter.OnItemClickListener {
+                    override fun onItemClick(position: Int, news: News) {
+                        val intent = Intent(
+                            requireContext(),
+                            NewDetailActivity::class.java
+                        )
+                        requireContext().startActivity(
+                            intent.putExtra(
+                                Constants.NEW_ID,
+                                news.id
+                            )
+                        )
+                    }
+                })
         }
     }
 
@@ -87,7 +107,7 @@ class NewsFragment : Fragment() {
     private fun invokeGetMoreData() {
         with(binding) {
             val cantScroll = newsViewModel.isLoading.value == true &&
-                !recyclerNews.canScrollVertically(1)
+                !recyclerNews.canScrollVertically(CAN_SCROLL_VERTICALLY_REFERENCE)
             newsViewModel.isCantScroll.value = cantScroll
         }
     }
@@ -106,7 +126,8 @@ class NewsFragment : Fragment() {
     }
 
     companion object {
-        const val CONNECTION_ERROR =
+        const val CONNECTION_ERROR: String =
             "Couldn't load news right now, try again"
+        const val CAN_SCROLL_VERTICALLY_REFERENCE: Int = 1
     }
 }

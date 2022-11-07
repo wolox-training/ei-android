@@ -1,5 +1,7 @@
 package com.example.woloxapp.model
 
+import java.io.Serializable
+
 data class News(
     val id: Int,
     val commenter: String,
@@ -10,4 +12,4 @@ data class News(
     val created_at: String,
     val updated_at: String,
     val liked: List<String>
-)
+) : Serializable

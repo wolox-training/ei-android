@@ -14,7 +14,11 @@ import java.math.RoundingMode
 import java.text.SimpleDateFormat
 import java.util.*
 
-class NewsViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+class NewsViewHolder(
+    view: View,
+    private val listener: NewsAdapter.OnItemClickListener
+) :
+    RecyclerView.ViewHolder(view) {
     val binding = ItemNewBinding.bind(view)
     fun render(newsModel: News) {
         with(binding) {
@@ -22,8 +26,9 @@ class NewsViewHolder(view: View) : RecyclerView.ViewHolder(view) {
             tvDescription.text = newsModel.comment
             tvDate.text = PrettyTime().format(
                 SimpleDateFormat(Constants.TIME_AGO_FORMAT, Locale.US).parse(
-                    newsModel.updated_at
+                    newsModel.created_at
                 )?.time?.let {
+                    println(it)
                     Date(
                         it
                     )
@@ -32,6 +37,9 @@ class NewsViewHolder(view: View) : RecyclerView.ViewHolder(view) {
             Glide.with(ivNews.context).load(randomURLImage())
                 .placeholder(ColorDrawable(Color.GRAY))
                 .into(ivNews)
+        }
+        itemView.setOnClickListener {
+            listener.onItemClick(adapterPosition, newsModel)
         }
     }
 
