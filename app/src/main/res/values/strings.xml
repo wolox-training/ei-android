@@ -21,6 +21,10 @@
     <string name="dummy_button">Books</string>
     <string name="dummy_content">Books</string>
     <string name="logout">Cerrar sesión</string>
+    <string name="wolox">Wolox</string>
     <!-- TODO: Signup -->
     <string name="go_back_btn">Volver</string>
+    <!-- TODO: Tabs -->
+    <string name="tab_news">News</string>
+    <string name="tab_profile">Profile</string>
 </resources>

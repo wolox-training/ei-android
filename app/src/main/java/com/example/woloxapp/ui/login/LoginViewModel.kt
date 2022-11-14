@@ -80,10 +80,6 @@ class LoginViewModel(val app: Application) : AndroidViewModel(app) {
         } else _credentialsOk.value = ResponseStatus.NetworkError
     }
 
-    fun logout() {
-        editor.clear()
-        editor.commit()
-    }
     private fun hasInternetConnection(): Boolean {
         val connectivityManager = getApplication<Application>().getSystemService(
             Context.CONNECTIVITY_SERVICE

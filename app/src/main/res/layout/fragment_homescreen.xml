@@ -1,42 +1,60 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:background="@color/cyan"
-    android:layout_gravity="center"
-    tools:context=".MainActivity"
-   >
+    android:orientation="vertical"
+    tools:context=".MainActivity">
 
-    <!-- The primary full-screen view. This can be replaced with whatever view
-         is needed to present your content, e.g. VideoView, SurfaceView,
-         TextureView, etc. -->
+    <ImageView
+        android:id="@+id/wolox_logo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/home_margin_left_logo"
+        android:layout_marginTop="@dimen/padding_regular_btn"
+        android:contentDescription="@string/welcome"
+        android:padding="@dimen/extra_small_margin"
+        android:src="@drawable/wolox_logo"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/fullscreen_content"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:gravity="center"
-        android:keepScreenOn="true"
-        android:text="@string/dummy_content"
-        android:textColor="@color/white"
-        android:textSize="@dimen/home_title_size"
-        android:textStyle="bold"
-      />
-
-    <Button
-        android:id="@+id/logoutBtn"
-        android:layout_width="match_parent"
+        android:id="@+id/wolox_title"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:padding="@dimen/padding_regular_btn"
-        android:layout_marginHorizontal="@dimen/fragment_horizontal_margin"
-        android:text="@string/logout"
-        android:backgroundTint="@color/white"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintVertical_bias="0.02"
-        app:cornerRadius="@dimen/none_radius"
+        android:layout_marginStart="@dimen/home_margin_left_logo"
+        android:layout_marginTop="@dimen/padding_regular_btn"
+        android:text="@string/wolox"
         android:textColor="@color/black"
-        />
+        android:textSize="@dimen/home_logo_text_size"
+        app:layout_constraintBottom_toBottomOf="@id/wolox_logo"
+        app:layout_constraintStart_toEndOf="@id/wolox_logo"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <com.google.android.material.tabs.TabLayout
+        android:id="@+id/tab_layout"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/tablayout_height"
+        android:background="@drawable/border_bottom_tablayout"
+        android:textSize="@dimen/tablayout_text_size"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/wolox_logo"
+        app:tabIconTint="@drawable/tab_labout_color_state"
+        app:tabIndicatorColor="@color/green"
+        app:tabIndicatorHeight="@dimen/tablayout_height_indicator"
+        app:tabMode="fixed"
+        app:tabSelectedTextColor="@color/green"
+        app:tabTextAppearance="@style/customTabBarStyle" />
+
+    <androidx.viewpager2.widget.ViewPager2
+        android:id="@+id/view_pager_2"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_below="@+id/tab_layout"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tab_layout" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

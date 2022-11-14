@@ -16,7 +16,24 @@
 
     <!-- Home -->
 
-<dimen name="go_back_home_margin_bottom">68dp</dimen>
+    <dimen name="go_back_home_margin_bottom">68dp</dimen>
     <dimen name="home_title_size">50sp</dimen>
+    <dimen name="text_margin">16dp</dimen>
+    <dimen name="home_margin_left_logo">10dp</dimen>
+    <dimen name="home_logo_text_size">22sp</dimen>
+
+    <!-- TabLayout -->
+    <dimen name="text_size_tab_layout">9sp</dimen>
+    <dimen name="stroke_width">0.5dp</dimen>
+    <dimen name="stroke_padding">1dp</dimen>
+    <dimen name="stroke_item_top">-2dp</dimen>
+    <dimen name="tablayout_height">46dp</dimen>
+    <dimen name="tablayout_elevation">1sp</dimen>
+    <dimen name="tablayout_text_size">12sp</dimen>
+    <dimen name="tablayout_height_indicator">3dp</dimen>
+    <dimen name="viewpager_margin_top">51dp</dimen>
+
+    <!-- Common Tabs -->
+    <dimen name="big_text_tabs">35sp</dimen>
 
 </resources>

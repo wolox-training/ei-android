@@ -3,18 +3,22 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="app/src/main/res/drawable-xxhdpi/tab_labout_color_state.xml" value="0.28072916666666664" />
+        <entry key="app/src/main/res/drawable/customTabSelectorState.xml" value="0.32395833333333335" />
+        <entry key="app/src/main/res/drawable/gradient_util.xml" value="0.33125" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.3078125" />
         <entry key="app/src/main/res/layout/fragment_auth_manager.xml" value="0.2828125" />
         <entry key="app/src/main/res/layout/fragment_home.xml" value="0.5119791666666667" />
         <entry key="app/src/main/res/layout/fragment_homescreen.xml" value="0.31354166666666666" />
         <entry key="app/src/main/res/layout/fragment_login_fragmentos.xml" value="0.2921875" />
+        <entry key="app/src/main/res/layout/fragment_news.xml" value="0.2560790273556231" />
+        <entry key="app/src/main/res/layout/fragment_news_list.xml" value="0.24094202898550723" />
+        <entry key="app/src/main/res/layout/fragment_news_list_list.xml" value="0.24094202898550723" />
+        <entry key="app/src/main/res/layout/fragment_profile.xml" value="0.2560790273556231" />
         <entry key="app/src/main/res/layout/fragment_signup.xml" value="0.31197916666666664" />
         <entry key="app/src/main/res/layout/login_fragment.xml" value="0.3078125" />
       </map>
     </option>
-  </component>
-  <component name="ProjectPlainTextFileTypeManager">
-    <file url="file://$PROJECT_DIR$/app/src/main/java/com/example/woloxapp/ui/login/LoginResult.kt" />
   </component>
   <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="Android Studio default JDK" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/build/classes" />
